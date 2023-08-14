@@ -1,3 +1,4 @@
+import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
 
@@ -33,6 +34,14 @@ class BoardUtils {
       result.add(Coordinates(source.file, rank));
     }
     return result;
+  }
+
+  static ColorChess oppositeColorChess(ColorChess color) {
+    if (color == ColorChess.white) {
+      return ColorChess.black;
+    } else {
+      return ColorChess.white;
+    }
   }
 
   static List<Coordinates> getHorizontalCoordinatesBetween(

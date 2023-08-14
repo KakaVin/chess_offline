@@ -21,6 +21,14 @@ class LongRangePiece extends Piece {
     bool result = super.isSquareAvailableForMove(coordinates, board);
 
     if (result) {
+      return isSquareAvailableForAttack(coordinates, board);
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  bool isSquareAvailableForAttack(Coordinates coordinates, Board board) {
       List<Coordinates> coordinatesBetween;
       if (this.coordinates.file == coordinates.file) {
         coordinatesBetween = BoardUtils.getVerticalCoordinatesBetween(
@@ -35,9 +43,6 @@ class LongRangePiece extends Piece {
       for (var e in coordinatesBetween) {
         if (!board.isSquareEmpty(e)) return false;
       }
-    } else {
-      return false;
-    }
     return true;
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/piece.dart';
 
@@ -30,5 +31,29 @@ class Board {
 
   static bool isSquareDark(Coordinates coordinates) {
     return ((coordinates.file.index + 1) + coordinates.rank) % 2 == 0;
+  }
+
+  bool isSquareAttackedByColor(Coordinates coordinates, ColorChess color) {
+    List<Piece> pieces = getPiecesByColor(color);
+
+    for (var piece in pieces){
+      var attackedSquares = piece.getAttackedSquares(this);
+
+      if (attackedSquares.contains(coordinates)){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  List<Piece> getPiecesByColor(ColorChess oppositeColorChess) {
+    List<Piece> result = [];
+
+    for (var piece in pieces.values){
+      if (piece.color == oppositeColorChess) {
+        result.add(piece);
+      }
+    }
+    return result;
   }
 }

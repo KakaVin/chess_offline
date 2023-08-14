@@ -31,4 +31,29 @@ abstract class Piece {
     return board.isSquareEmpty(coordinates) ||
         board.getPiece(coordinates).color != color;
   }
+
+  Set<Coordinates> getAttackedSquares(Board board) {
+    Set<CoordinatesShift> pieceAttacked = getPieceAttacked();
+    Set<Coordinates> result = HashSet();
+
+    for (CoordinatesShift pieceAttack in pieceAttacked){
+      if (coordinates.canShift(pieceAttack)){
+        var shiftedCoordinates = coordinates.shift(pieceAttack);
+        
+        if (isSquareAvailableForAttack(shiftedCoordinates, board)){
+          result.add(shiftedCoordinates);
+        }
+      }
+    }
+
+    return result;
+  }
+
+  Set<CoordinatesShift> getPieceAttacked() {
+    return getPieceMove();
+  }
+
+  bool isSquareAvailableForAttack(Coordinates coordinates, Board board) {
+    return true;
+  }
 }

@@ -40,11 +40,25 @@ class Pawn extends Piece {
   }
 
   @override
+  Set<CoordinatesShift> getPieceAttacked() {
+    Set<CoordinatesShift> result = HashSet();
+    if (color == ColorChess.white) {
+      result.add(CoordinatesShift(1, 1));
+      result.add(CoordinatesShift(-1, 1));
+    } else {
+      result.add(CoordinatesShift(1, -1));
+      result.add(CoordinatesShift(-1, -1));
+    }
+
+    return result;
+  }
+
+  @override
   bool isSquareAvailableForMove(Coordinates coordinates, Board board) {
     if (coordinates.file == this.coordinates.file) {
       return board.isSquareEmpty(coordinates);
     } else {
-      if (board.isSquareEmpty(coordinates)){
+      if (board.isSquareEmpty(coordinates)) {
         return false;
       } else {
         return board.getPiece(coordinates).color != color;
