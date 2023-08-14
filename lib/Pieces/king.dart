@@ -15,9 +15,9 @@ class King extends Piece {
   Set<CoordinatesShift> getPieceMove() {
     Set<CoordinatesShift> result = HashSet();
 
-    for (var fileShift = -1; fileShift <= 1; fileShift++){
-      for (var rankShift = -1; rankShift <= 1; rankShift++){
-        if (rankShift == 0 && fileShift == 0){
+    for (var fileShift = -1; fileShift <= 1; fileShift++) {
+      for (var rankShift = -1; rankShift <= 1; rankShift++) {
+        if (rankShift == 0 && fileShift == 0) {
           continue;
         } else {
           result.add(CoordinatesShift(fileShift, rankShift));
@@ -31,7 +31,7 @@ class King extends Piece {
   bool isSquareAvailableForMove(Coordinates coordinates, Board board) {
     bool result = super.isSquareAvailableForMove(coordinates, board);
     if (!result) return result;
-    return !board.isSquareAttackedByColor(coordinates, BoardUtils.oppositeColorChess(color));
+    return !board.isSquareAttackedByColor(
+        coordinates, BoardUtils.oppositeColorChess(color));
   }
-
 }

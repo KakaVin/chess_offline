@@ -36,10 +36,10 @@ class Board {
   bool isSquareAttackedByColor(Coordinates coordinates, ColorChess color) {
     List<Piece> pieces = getPiecesByColor(color);
 
-    for (var piece in pieces){
+    for (var piece in pieces) {
       var attackedSquares = piece.getAttackedSquares(this);
 
-      if (attackedSquares.contains(coordinates)){
+      if (attackedSquares.contains(coordinates)) {
         return true;
       }
     }
@@ -49,7 +49,7 @@ class Board {
   List<Piece> getPiecesByColor(ColorChess oppositeColorChess) {
     List<Piece> result = [];
 
-    for (var piece in pieces.values){
+    for (var piece in pieces.values) {
       if (piece.color == oppositeColorChess) {
         result.add(piece);
       }

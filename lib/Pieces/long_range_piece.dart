@@ -29,20 +29,20 @@ class LongRangePiece extends Piece {
 
   @override
   bool isSquareAvailableForAttack(Coordinates coordinates, Board board) {
-      List<Coordinates> coordinatesBetween;
-      if (this.coordinates.file == coordinates.file) {
-        coordinatesBetween = BoardUtils.getVerticalCoordinatesBetween(
-            this.coordinates, coordinates);
-      } else if (this.coordinates.rank == coordinates.rank) {
-        coordinatesBetween = BoardUtils.getHorizontalCoordinatesBetween(
-            this.coordinates, coordinates);
-      } else {
-        coordinatesBetween = BoardUtils.getDiagonalCoordinatesBetween(
-            this.coordinates, coordinates);
-      }
-      for (var e in coordinatesBetween) {
-        if (!board.isSquareEmpty(e)) return false;
-      }
+    List<Coordinates> coordinatesBetween;
+    if (this.coordinates.file == coordinates.file) {
+      coordinatesBetween = BoardUtils.getVerticalCoordinatesBetween(
+          this.coordinates, coordinates);
+    } else if (this.coordinates.rank == coordinates.rank) {
+      coordinatesBetween = BoardUtils.getHorizontalCoordinatesBetween(
+          this.coordinates, coordinates);
+    } else {
+      coordinatesBetween = BoardUtils.getDiagonalCoordinatesBetween(
+          this.coordinates, coordinates);
+    }
+    for (var e in coordinatesBetween) {
+      if (!board.isSquareEmpty(e)) return false;
+    }
     return true;
   }
 }

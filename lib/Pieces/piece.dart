@@ -36,11 +36,11 @@ abstract class Piece {
     Set<CoordinatesShift> pieceAttacked = getPieceAttacked();
     Set<Coordinates> result = HashSet();
 
-    for (CoordinatesShift pieceAttack in pieceAttacked){
-      if (coordinates.canShift(pieceAttack)){
+    for (CoordinatesShift pieceAttack in pieceAttacked) {
+      if (coordinates.canShift(pieceAttack)) {
         var shiftedCoordinates = coordinates.shift(pieceAttack);
-        
-        if (isSquareAvailableForAttack(shiftedCoordinates, board)){
+
+        if (isSquareAvailableForAttack(shiftedCoordinates, board)) {
           result.add(shiftedCoordinates);
         }
       }
