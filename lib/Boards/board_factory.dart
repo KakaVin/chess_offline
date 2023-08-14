@@ -1,8 +1,8 @@
 import 'package:chess_offline/Pieces/util/coordinates.dart';
-import 'package:chess_offline/board.dart';
+import 'package:chess_offline/Boards/board.dart';
 import 'package:chess_offline/piece_factory.dart';
 
-import 'Pieces/util/file.dart';
+import '../Pieces/util/file.dart';
 
 class BoardFactory {
   Board fromFEN(String fen) {

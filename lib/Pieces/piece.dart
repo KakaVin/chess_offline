@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
-import 'package:chess_offline/board.dart';
+import 'package:chess_offline/Boards/board.dart';
 
 import 'util/coordinates_shift.dart';
 

@@ -4,7 +4,7 @@ import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/piece.dart';
 
-import '../board.dart';
+import '../Boards/board.dart';
 import 'util/coordinates_shift.dart';
 
 class Pawn extends Piece {

@@ -2,7 +2,7 @@ import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
 import 'package:chess_offline/Pieces/piece.dart';
-import 'package:chess_offline/board.dart';
+import 'package:chess_offline/Boards/board.dart';
 
 class BoardConsoleRenderer {
   static const String ansiReset = "\u001B[0m";

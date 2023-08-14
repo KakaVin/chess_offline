@@ -6,8 +6,8 @@ import 'package:chess_offline/Pieces/king.dart';
 import 'package:chess_offline/Pieces/knight.dart';
 import 'package:chess_offline/Pieces/pawn.dart';
 import 'package:chess_offline/Pieces/rook.dart';
-import 'package:chess_offline/board.dart';
-import 'package:chess_offline/board_factory.dart';
+import 'package:chess_offline/Boards/board.dart';
+import 'package:chess_offline/Boards/board_factory.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main(){

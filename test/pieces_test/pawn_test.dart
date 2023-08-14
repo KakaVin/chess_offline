@@ -1,8 +1,8 @@
 import 'package:chess_offline/Pieces/piece.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
-import 'package:chess_offline/board.dart';
-import 'package:chess_offline/board_factory.dart';
+import 'package:chess_offline/Boards/board.dart';
+import 'package:chess_offline/Boards/board_factory.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main(){

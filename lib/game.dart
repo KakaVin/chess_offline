@@ -1,28 +1,35 @@
+import 'package:chess_offline/Boards/board_widget_renderer.dart';
 import 'package:chess_offline/Pieces/piece.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
-import 'package:chess_offline/board.dart';
-import 'package:chess_offline/board_console_renderer.dart';
+import 'package:chess_offline/Boards/board.dart';
+import 'package:flutter/material.dart';
 
-class Game {
+class GameProvider extends ChangeNotifier {
   final Board board;
-  final BoardConsoleRenderer renderer = BoardConsoleRenderer();
+  late Widget boardWidget;
+  //final BoardConsoleRenderer renderer = BoardConsoleRenderer();
+  final BoardWidgetRenderer renderer = BoardWidgetRenderer();
   bool isWhiteToMove = true;
 
-  Game(this.board);
+  GameProvider(this.board){
+    boardWidget = renderer.render(board, null);
+  }
 
   void gameLoop() {
     while (true) {
       // render
-      renderer.render(board, null);
+      boardWidget = renderer.render(board, null);
 
       // input
       Piece piece = board.getPiece(Coordinates(File.A, 1));
-      renderer.render(board, piece);
+
+      boardWidget = renderer.render(board, piece);
       // make move
 
       // pass move
       isWhiteToMove = !isWhiteToMove;
+      notifyListeners();
     }
   }
 }
