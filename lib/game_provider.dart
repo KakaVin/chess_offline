@@ -1,4 +1,3 @@
-import 'package:chess_offline/Boards/board_widget_renderer.dart';
 import 'package:chess_offline/Pieces/piece.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
