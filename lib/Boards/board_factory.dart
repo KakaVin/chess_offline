@@ -1,6 +1,6 @@
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Boards/board.dart';
-import 'package:chess_offline/piece_factory.dart';
+import 'package:chess_offline/Pieces/util/piece_factory.dart';
 
 import '../Pieces/util/file.dart';
 

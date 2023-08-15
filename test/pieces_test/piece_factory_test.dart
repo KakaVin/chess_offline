@@ -3,7 +3,7 @@ import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
 import 'package:chess_offline/Pieces/knight.dart';
 import 'package:chess_offline/Pieces/pawn.dart';
-import 'package:chess_offline/piece_factory.dart';
+import 'package:chess_offline/Pieces/util/piece_factory.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

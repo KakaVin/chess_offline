@@ -1,5 +1,5 @@
 import 'package:chess_offline/Boards/board_factory.dart';
-import 'package:chess_offline/game.dart';
+import 'package:chess_offline/game_provider.dart';
 import 'package:chess_offline/ui/game_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
