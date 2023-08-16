@@ -11,11 +11,31 @@ class GameProvider extends ChangeNotifier {
   //final BoardConsoleRenderer renderer = BoardConsoleRenderer();
   final BoardWidgetRenderer renderer = BoardWidgetRenderer();
   late Column boardWidget;
+  Piece? selectedPiece;
 
   bool isWhiteToMove = true;
 
-  GameProvider(this.board){
+  GameProvider(this.board) {
     boardWidget = renderer.render(board, null);
+  }
+  void inputCoordinateTap(Coordinates coordinates) {
+    //выбрать свою фигуру
+    if (selectedPiece == null) {
+      if (!board.isSquareEmpty(coordinates)) {
+        selectedPiece = board.getPiece(coordinates);
+      }
+      //сделать ход на достнупные координаты либо выбрать другую фигуру
+    } else if (selectedPiece!
+        .getAvailableMoveSquares(board)
+        .contains(coordinates)) {
+      if (!board.isSquareEmpty(coordinates)) board.removePeace(coordinates);
+      board.movePeace(selectedPiece!.coordinates, coordinates);
+      selectedPiece = null;
+    } else {
+      selectedPiece = null;
+    }
+    boardWidget = renderer.render(board, selectedPiece);
+    notifyListeners();
   }
 
   void gameLoop() {

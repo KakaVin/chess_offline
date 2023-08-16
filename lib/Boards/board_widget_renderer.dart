@@ -1,6 +1,7 @@
 import 'package:chess_offline/Boards/board_console_renderer.dart';
 import 'package:chess_offline/Pieces/piece.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
+import 'package:chess_offline/ui/widgets/board_cell.dart';
 import 'package:flutter/material.dart';
 
 import '../Pieces/util/color_chess.dart';
@@ -14,11 +15,9 @@ class BoardWidgetRenderer {
   static const Color blackSquareBackgroundColor = Color(0xff996633);
   static const Color whiteSquareBackgroundColor = Colors.grey;
 
-  static const Color highlightedSquareBackground = Colors.lightBlueAccent;
+  static const Color highlightedSquareBackground = Color(0x50006600);
 
   static const double cellWidth = 50;
-
-  BoardWidgetRenderer();
 
   Column render(Board board, Piece? pieceToMove) {
     late List<Widget> lineToRow = [];
@@ -36,8 +35,7 @@ class BoardWidgetRenderer {
         if (board.isSquareEmpty(coordinates)) {
           line.add(_getCellForEmptySquare(coordinates, isHighLight));
         } else {
-          line
-              .add(_getPieceSprite(board.getPiece(coordinates), isHighLight));
+          line.add(_getPieceSprite(board.getPiece(coordinates), isHighLight));
         }
       }
       Row row = Row(
@@ -47,39 +45,22 @@ class BoardWidgetRenderer {
       lineToRow.add(row);
     }
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: lineToRow,
     );
   }
 
   Widget _getCellForEmptySquare(Coordinates coordinates, bool isHighLight) {
-    return _colorizeSprite(
-        " ", ColorChess.white, Board.isSquareDark(coordinates), isHighLight);
+    return BoardCell(" ", ColorChess.white, Board.isSquareDark(coordinates),
+        isHighLight, coordinates);
   }
 
   Widget _getPieceSprite(Piece piece, bool isHighLight) {
-    return _colorizeSprite(
+    return BoardCell(
         BoardConsoleRenderer.selectUnicodeSpriteForPiece(piece),
         piece.color,
         Board.isSquareDark(piece.coordinates),
-        isHighLight);
-  }
-
-  Widget _colorizeSprite(String sprite, ColorChess pieceColor,
-      bool isSquareDark, bool isHighLight) {
-    return Container(
-        color: (isSquareDark)
-            ? blackSquareBackgroundColor
-            : whiteSquareBackgroundColor,
-        width: cellWidth,
-        height: cellWidth,
-        child: Center(
-            child: Text(
-          sprite,
-          style: TextStyle(
-              fontSize: 40,
-              color: (pieceColor == ColorChess.white)
-                  ? whitePieceColor
-                  : blackPieceColor),
-        )));
+        isHighLight,
+        piece.coordinates);
   }
 }

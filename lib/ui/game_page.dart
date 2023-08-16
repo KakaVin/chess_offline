@@ -10,7 +10,7 @@ class GameWidget extends StatelessWidget{
     return Scaffold(
       appBar: AppBar(title: const Text("Loading..."),),
       body: Center(
-        child: context.read<GameProvider>().boardWidget
+        child: context.watch<GameProvider>().boardWidget
       ),
     );
   }

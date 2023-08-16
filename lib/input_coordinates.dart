@@ -4,9 +4,6 @@ import 'package:chess_offline/Pieces/util/file.dart';
 import 'package:chess_offline/Boards/board.dart';
 
 class InputCoordinates {
-  static Coordinates input(Coordinates coordinates) {
-    return coordinates;
-  }
 
   static Coordinates inputPieceCoordinatesForColor(
       ColorChess color, Board board) {
