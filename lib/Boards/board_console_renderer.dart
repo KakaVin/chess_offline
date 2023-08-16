@@ -55,7 +55,7 @@ class BoardConsoleRenderer {
     return result;
   }
 
-  String selectUnicodeSpriteForPiece(Piece piece) {
+  static String selectUnicodeSpriteForPiece(Piece piece) {
     switch (piece.runtimeType.toString()) {
       case "Pawn":
         return "♟︎";

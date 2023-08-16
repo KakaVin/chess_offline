@@ -12,7 +12,7 @@ void main() {
             create: (_) => GameProvider(BoardFactory().fromFEN(
                 "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")))
       ],
-      child: const MyApp(),
+      child: MyApp(),
     ),
   );
 }

@@ -4,17 +4,18 @@ import 'package:chess_offline/Pieces/util/file.dart';
 import 'package:chess_offline/Boards/board.dart';
 import 'package:flutter/material.dart';
 
-import 'Boards/board_console_renderer.dart';
+import 'Boards/board_widget_renderer.dart';
 
 class GameProvider extends ChangeNotifier {
   final Board board;
-  late Widget boardWidget;
-  final BoardConsoleRenderer renderer = BoardConsoleRenderer();
-  //final BoardWidgetRenderer renderer = BoardWidgetRenderer();
+  //final BoardConsoleRenderer renderer = BoardConsoleRenderer();
+  final BoardWidgetRenderer renderer = BoardWidgetRenderer();
+  late Column boardWidget;
+
   bool isWhiteToMove = true;
 
   GameProvider(this.board){
-    renderer.render(board, null);
+    boardWidget = renderer.render(board, null);
   }
 
   void gameLoop() {
