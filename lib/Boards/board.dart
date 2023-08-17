@@ -1,10 +1,15 @@
 import 'dart:collection';
+import 'package:chess_offline/Boards/move.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/piece.dart';
 
 class Board {
   HashMap<Coordinates, Piece> pieces = HashMap();
+  String startingFen;
+  List<Move> moves = [];
+
+  Board(this.startingFen);
 
   void setPiece(Coordinates coordinates, Piece piece) {
     piece.coordinates = coordinates;
@@ -14,11 +19,13 @@ class Board {
   void removePeace(Coordinates coordinates) {
     pieces.remove(coordinates);
   }
+  void makeMove(Move move){
+    Piece piece = getPiece(move.from);
 
-  void movePeace(Coordinates from, Coordinates to) {
-    Piece piece = getPiece(from);
-    removePeace(from);
-    setPiece(to, piece);
+    removePeace(move.from);
+    setPiece(move.to, piece);
+
+    moves.add(move);
   }
 
   bool isSquareEmpty(Coordinates coordinates) {
@@ -46,11 +53,11 @@ class Board {
     return false;
   }
 
-  List<Piece> getPiecesByColor(ColorChess oppositeColorChess) {
+  List<Piece> getPiecesByColor(ColorChess color) {
     List<Piece> result = [];
 
     for (var piece in pieces.values) {
-      if (piece.color == oppositeColorChess) {
+      if (piece.color == color) {
         result.add(piece);
       }
     }
