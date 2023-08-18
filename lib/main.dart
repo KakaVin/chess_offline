@@ -12,7 +12,7 @@ void main() {
             create: (_) => GameProvider(BoardFactory().fromFEN(
                 "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")))
       ],
-      child: const MyApp(),
+      child: MyApp(),
     ),
   );
 }
@@ -23,11 +23,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: GameWidget()
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: GameWidget());
   }
 }

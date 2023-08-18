@@ -10,58 +10,64 @@ import 'package:chess_offline/Boards/board.dart';
 import 'package:chess_offline/Boards/board_factory.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-void main(){
+void main() {
+  group("board 7 piece", () {
+    Board board =
+        BoardFactory().fromFEN("rnb1k3/8/8/3p4/3P4/8/8/4K3 w q - 0 1");
 
-  group("board 7 piece", (){
-
-    Board board = BoardFactory().fromFEN("rnb1k3/8/8/3p4/3P4/8/8/4K3 w q - 0 1");
-
-    test("count Piece", (){
+    test("count Piece", () {
       expect(board.pieces.length, 7);
     });
-    test("empty place", (){
+    test("empty place", () {
       expect(board.isSquareEmpty(Coordinates(File.D, 8)), true);
     });
 
-    test("white Pawn", (){
+    test("white Pawn", () {
       expect(board.getPiece(Coordinates(File.D, 4)) is Pawn, true);
-      expect((board.getPiece(Coordinates(File.D, 4)) as Pawn).color, ColorChess.white);
+      expect((board.getPiece(Coordinates(File.D, 4)) as Pawn).color,
+          ColorChess.white);
     });
-    test("black Pawn", (){
+    test("black Pawn", () {
       expect(board.getPiece(Coordinates(File.D, 5)) is Pawn, true);
-      expect((board.getPiece(Coordinates(File.D, 5)) as Pawn).color, ColorChess.black);
+      expect((board.getPiece(Coordinates(File.D, 5)) as Pawn).color,
+          ColorChess.black);
     });
 
-    test("black Rook", (){
+    test("black Rook", () {
       expect(board.getPiece(Coordinates(File.A, 8)) is Rook, true);
-      expect((board.getPiece(Coordinates(File.A, 8)) as Rook).color, ColorChess.black);
+      expect((board.getPiece(Coordinates(File.A, 8)) as Rook).color,
+          ColorChess.black);
     });
-    test("black Knight", (){
+    test("black Knight", () {
       expect(board.getPiece(Coordinates(File.B, 8)) is Knight, true);
-      expect((board.getPiece(Coordinates(File.B, 8)) as Knight).color, ColorChess.black);
+      expect((board.getPiece(Coordinates(File.B, 8)) as Knight).color,
+          ColorChess.black);
     });
-    test("black Bishop", (){
+    test("black Bishop", () {
       expect(board.getPiece(Coordinates(File.C, 8)) is Bishop, true);
-      expect((board.getPiece(Coordinates(File.C, 8)) as Bishop).color, ColorChess.black);
+      expect((board.getPiece(Coordinates(File.C, 8)) as Bishop).color,
+          ColorChess.black);
     });
-    test("black King", (){
+    test("black King", () {
       expect(board.getPiece(Coordinates(File.E, 8)) is King, true);
-      expect((board.getPiece(Coordinates(File.E, 8)) as King).color, ColorChess.black);
+      expect((board.getPiece(Coordinates(File.E, 8)) as King).color,
+          ColorChess.black);
     });
-    test("white King", (){
+    test("white King", () {
       expect(board.getPiece(Coordinates(File.E, 1)) is King, true);
-      expect((board.getPiece(Coordinates(File.E, 1)) as King).color, ColorChess.white);
+      expect((board.getPiece(Coordinates(File.E, 1)) as King).color,
+          ColorChess.white);
     });
   });
 
-  group("start board", (){
+  group("start board", () {
+    Board board = BoardFactory()
+        .fromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
-    Board board = BoardFactory().fromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-
-    test("count Piece", (){
+    test("count Piece", () {
       expect(board.pieces.length, 32);
     });
-    test("empty place", (){
+    test("empty place", () {
       expect(board.isSquareEmpty(Coordinates(File.H, 3)), true);
       expect(board.isSquareEmpty(Coordinates(File.H, 4)), true);
       expect(board.isSquareEmpty(Coordinates(File.H, 5)), true);
@@ -72,22 +78,25 @@ void main(){
       expect(board.isSquareEmpty(Coordinates(File.A, 5)), true);
       expect(board.isSquareEmpty(Coordinates(File.A, 6)), true);
     });
-    test("white Pawn", (){
+    test("white Pawn", () {
       expect(board.getPiece(Coordinates(File.A, 2)) is Pawn, true);
-      expect((board.getPiece(Coordinates(File.A, 2)) as Pawn).color, ColorChess.white);
+      expect((board.getPiece(Coordinates(File.A, 2)) as Pawn).color,
+          ColorChess.white);
     });
-    test("black Pawn", (){
+    test("black Pawn", () {
       expect(board.getPiece(Coordinates(File.H, 7)) is Pawn, true);
-      expect((board.getPiece(Coordinates(File.H, 7)) as Pawn).color, ColorChess.black);
+      expect((board.getPiece(Coordinates(File.H, 7)) as Pawn).color,
+          ColorChess.black);
     });
-    test("white King", (){
+    test("white King", () {
       expect(board.getPiece(Coordinates(File.E, 1)) is King, true);
-      expect((board.getPiece(Coordinates(File.E, 1)) as King).color, ColorChess.white);
+      expect((board.getPiece(Coordinates(File.E, 1)) as King).color,
+          ColorChess.white);
     });
-    test("black King", (){
+    test("black King", () {
       expect(board.getPiece(Coordinates(File.E, 8)) is King, true);
-      expect((board.getPiece(Coordinates(File.E, 8)) as King).color, ColorChess.black);
+      expect((board.getPiece(Coordinates(File.E, 8)) as King).color,
+          ColorChess.black);
     });
-
   });
 }

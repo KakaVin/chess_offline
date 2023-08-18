@@ -55,7 +55,7 @@ class BoardConsoleRenderer {
     return result;
   }
 
-  String _selectUnicodeSpriteForPiece(Piece piece) {
+  static String selectUnicodeSpriteForPiece(Piece piece) {
     switch (piece.runtimeType.toString()) {
       case "Pawn":
         return "♟︎";
@@ -86,7 +86,7 @@ class BoardConsoleRenderer {
   }
 
   String _getPieceSprite(Piece piece, bool isHighLight) {
-    return _colorizeSprite(" ${_selectUnicodeSpriteForPiece(piece)} ",
+    return _colorizeSprite(" ${selectUnicodeSpriteForPiece(piece)} ",
         piece.color, Board.isSquareDark(piece.coordinates), isHighLight);
   }
 }

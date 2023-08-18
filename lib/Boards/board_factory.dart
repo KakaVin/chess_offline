@@ -8,7 +8,7 @@ class BoardFactory {
   Board fromFEN(String fen) {
     List<String> parts = fen.split(" ");
     List<String> fenRows = parts[0].split("/");
-    Board board = Board();
+    Board board = Board(fen);
     PieceFactory _pieceFactory = PieceFactory();
 
     for (int i = 0; i < fenRows.length; i++) {
@@ -34,5 +34,15 @@ class BoardFactory {
     }
 
     return board;
+  }
+
+  Board copy(Board source) {
+    Board result = fromFEN(source.startingFen);
+
+    for (var move in source.moves) {
+      result.makeMove(move);
+    }
+
+    return result;
   }
 }
