@@ -58,9 +58,13 @@ class Pawn extends Piece {
   bool isSquareAvailableForMove(Coordinates coordinates, Board board) {
     if (coordinates.file == this.coordinates.file) {
       var rankShift = (this.coordinates.rank - coordinates.rank).abs();
-      if (rankShift == 2){
-        var between = BoardUtils.getVerticalCoordinatesBetween(this.coordinates, coordinates);
-        return board.isSquareEmpty(between[0]);
+
+      if (rankShift == 2) {
+        var between = BoardUtils.getVerticalCoordinatesBetween(
+            this.coordinates, coordinates);
+
+        return board.isSquareEmpty(between[0]) &&
+            board.isSquareEmpty(coordinates);
       } else {
         return board.isSquareEmpty(coordinates);
       }

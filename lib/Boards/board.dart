@@ -3,6 +3,7 @@ import 'package:chess_offline/Boards/move.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/piece.dart';
+import 'package:chess_offline/Pieces/util/file.dart';
 
 import '../Pieces/king.dart';
 import 'board_factory.dart';
@@ -76,11 +77,18 @@ class Board {
     Board copy = BoardFactory().copy(board);
     copy.makeMove(move);
     //допущение - король имеется на доске
-    late Piece king;
-    for (var piece in copy.getPiecesByColor(color)) {
-      if (piece is King) king = piece;
-    }
+
+    Piece king = copy.getKingByColor(color);
+
     return copy.isSquareAttackedByColor(
         king.coordinates, BoardUtils.oppositeColorChess(color));
+  }
+
+  Piece getKingByColor(ColorChess color) {
+    for (var piece in getPiecesByColor(color)) {
+      if (piece is King) return piece;
+    }
+    Exception(["king not avialable"]);
+    return King(color, Coordinates(File.A, 1));
   }
 }

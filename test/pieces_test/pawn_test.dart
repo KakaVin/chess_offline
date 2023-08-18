@@ -66,9 +66,14 @@ void main() {
       expect(blackPawn.getAvailableMoveSquares(board).length, 2);
       expect(whitePawn.getAvailableMoveSquares(board).length, 1);
     });
-    test("pawn cannot move through a piece", (){
+    test("pawn cannot move through a piece", () {
       Board board = BoardFactory().fromFEN("3k4/8/8/8/8/3p4/3P4/3K4 w - - 0 1");
-      expect(board.getPiece(Coordinates(File.D, 2)).getAvailableMoveSquares(board).length, 0);
+      expect(
+          board
+              .getPiece(Coordinates(File.D, 2))
+              .getAvailableMoveSquares(board)
+              .length,
+          0);
     });
   });
 }

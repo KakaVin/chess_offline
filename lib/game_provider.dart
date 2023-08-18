@@ -5,6 +5,7 @@ import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
 import 'package:chess_offline/Boards/board.dart';
+import 'package:chess_offline/checkmate_game_state_checker.dart';
 import 'package:chess_offline/game_state.dart';
 import 'package:chess_offline/game_state_checker.dart';
 import 'package:chess_offline/stalemate_game_state_checker.dart';
@@ -21,6 +22,7 @@ class GameProvider extends ChangeNotifier {
   late GameState state;
   final List<GameStateChecker> checkers = [
     StalemateGameStateChecker(),
+    CheckmateGameStateChecker()
   ];
 
   ColorChess colorMovie = ColorChess.white;
