@@ -36,14 +36,17 @@ class BoardCell extends StatelessWidget {
           width: BoardWidgetRenderer.cellWidth,
           height: BoardWidgetRenderer.cellWidth,
           child: Center(
-              child: Text(
+              child: RotatedBox(
+                quarterTurns: context.read<GameProvider>().colorMovie == ColorChess.white ? 0 : 2,
+                child: Text(
             sprite,
             style: TextStyle(
-                fontSize: 40,
-                color: (pieceColor == ColorChess.white)
-                    ? BoardWidgetRenderer.whitePieceColor
-                    : BoardWidgetRenderer.blackPieceColor),
-          ))),
+                  fontSize: 40,
+                  color: (pieceColor == ColorChess.white)
+                      ? BoardWidgetRenderer.whitePieceColor
+                      : BoardWidgetRenderer.blackPieceColor),
+          ),
+              ))),
     );
   }
 }

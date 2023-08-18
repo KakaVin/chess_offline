@@ -10,15 +10,18 @@ void main() {
   PieceFactory factory = PieceFactory();
   Coordinates coordinates = Coordinates(File.A, 1);
 
-  test("get black pawn", (){
+  test("get black pawn", () {
     expect((factory.fromFenChar("p", coordinates) is Pawn), true);
-    expect((factory.fromFenChar("p", coordinates) as Pawn).color, ColorChess.black);
+    expect((factory.fromFenChar("p", coordinates) as Pawn).color,
+        ColorChess.black);
   });
-  test("get white Knight", (){
+  test("get white Knight", () {
     expect((factory.fromFenChar("N", coordinates) is Knight), true);
-    expect((factory.fromFenChar("N", coordinates) as Knight).color, ColorChess.white);
+    expect((factory.fromFenChar("N", coordinates) as Knight).color,
+        ColorChess.white);
   });
-  test("get unknown char", (){
-    expect(() => throw factory.fromFenChar("g", coordinates), throwsA(isA<RangeError>()));
+  test("get unknown char", () {
+    expect(() => throw factory.fromFenChar("g", coordinates),
+        throwsA(isA<RangeError>()));
   });
 }

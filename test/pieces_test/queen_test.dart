@@ -4,10 +4,8 @@ import 'package:chess_offline/Boards/board.dart';
 import 'package:chess_offline/Boards/board_factory.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-
 void main() {
-
-  group("Available Move Squares Queen", (){
+  group("Available Move Squares Queen", () {
     Coordinates coordinates = Coordinates(File.C, 4);
     Board board = BoardFactory().fromFEN("3k4/8/8/2R5/2Q1p3/8/8/3K4 w - - 0 1");
 
@@ -24,16 +22,18 @@ void main() {
     //behind black piece
     Coordinates incorrectMove2 = Coordinates(File.H, 4);
 
-    test("count Available move", (){
+    test("count Available move", () {
       expect(piece.getAvailableMoveSquares(board).length, 18);
     });
-    test("Available move", (){
+    test("Available move", () {
       expect(piece.getAvailableMoveSquares(board).contains(move1), true);
       expect(piece.getAvailableMoveSquares(board).contains(move2), true);
       expect(piece.getAvailableMoveSquares(board).contains(move3), true);
 
-      expect(piece.getAvailableMoveSquares(board).contains(incorrectMove1), false);
-      expect(piece.getAvailableMoveSquares(board).contains(incorrectMove2), false);
+      expect(
+          piece.getAvailableMoveSquares(board).contains(incorrectMove1), false);
+      expect(
+          piece.getAvailableMoveSquares(board).contains(incorrectMove2), false);
     });
   });
 }

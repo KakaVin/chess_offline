@@ -65,7 +65,7 @@ class GameProvider extends ChangeNotifier {
   }
 
   void makeMove(Board board, Move move) {
-    if (validateIfKingInCheckAfterMove(board, board.getPiece(move.from).color,
+    if (Board.validateIfKingInCheckAfterMove(board, board.getPiece(move.from).color,
         move)) {
       print("your King is after attack");
     } else {
@@ -73,17 +73,5 @@ class GameProvider extends ChangeNotifier {
       colorMovie = BoardUtils.oppositeColorChess(colorMovie);
     }
     selectedPiece = null;
-  }
-
-  bool validateIfKingInCheckAfterMove(
-      Board board, ColorChess color, Move move) {
-    Board copy = BoardFactory().copy(board);
-    copy.makeMove(move);
-    //допущение - король имеется на доске
-    late Piece king;
-    for (var piece in copy.getPiecesByColor(color)) {
-      if (piece is King) king = piece;
-    }
-    return copy.isSquareAttackedByColor(king.coordinates, BoardUtils.oppositeColorChess(color));
   }
 }

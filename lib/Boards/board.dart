@@ -4,6 +4,10 @@ import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/piece.dart';
 
+import '../Pieces/king.dart';
+import 'board_factory.dart';
+import 'board_utils.dart';
+
 class Board {
   HashMap<Coordinates, Piece> pieces = HashMap();
   String startingFen;
@@ -23,6 +27,8 @@ class Board {
     Piece piece = getPiece(move.from);
 
     removePeace(move.from);
+    removePeace(move.to);
+
     setPiece(move.to, piece);
 
     moves.add(move);
@@ -62,5 +68,17 @@ class Board {
       }
     }
     return result;
+  }
+
+  static bool validateIfKingInCheckAfterMove(
+      Board board, ColorChess color, Move move) {
+    Board copy = BoardFactory().copy(board);
+    copy.makeMove(move);
+    //допущение - король имеется на доске
+    late Piece king;
+    for (var piece in copy.getPiecesByColor(color)) {
+      if (piece is King) king = piece;
+    }
+    return copy.isSquareAttackedByColor(king.coordinates, BoardUtils.oppositeColorChess(color));
   }
 }

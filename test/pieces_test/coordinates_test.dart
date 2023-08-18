@@ -4,7 +4,6 @@ import 'package:chess_offline/Pieces/util/file.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  
   Coordinates coordinates = Coordinates(File.D, 4);
   Coordinates coordinatesIdentical = Coordinates(File.D, 4);
   Coordinates coordinatesDifferent = Coordinates(File.A, 4);
@@ -38,8 +37,8 @@ void main() {
       expect(coordinates.canShift(CoordinatesShift(-34, 0)), false);
     });
   });
-  
-  group("comparison of identical coordinates", (){
+
+  group("comparison of identical coordinates", () {
     test("==", () {
       expect(coordinates == coordinatesIdentical, true);
     });
@@ -48,7 +47,7 @@ void main() {
     });
   });
 
-  group("comparison of different coordinates", (){
+  group("comparison of different coordinates", () {
     test("==", () {
       expect(coordinates == coordinatesDifferent, false);
     });
@@ -56,5 +55,4 @@ void main() {
       expect(coordinates.hashCode == coordinatesDifferent.hashCode, false);
     });
   });
-
 }
