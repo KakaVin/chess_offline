@@ -4,8 +4,8 @@ import 'package:chess_offline/Boards/board_utils.dart';
 import 'package:chess_offline/Boards/move.dart';
 import 'package:chess_offline/Pieces/piece.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
-import 'package:chess_offline/game_state.dart';
-import 'package:chess_offline/game_state_checker.dart';
+import 'package:chess_offline/game_state/game_state.dart';
+import 'package:chess_offline/game_state/game_state_checker.dart';
 
 class CheckmateGameStateChecker extends GameStateChecker {
   @override

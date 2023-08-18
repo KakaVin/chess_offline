@@ -4,7 +4,7 @@ import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
 import 'package:chess_offline/game_provider.dart';
-import 'package:chess_offline/game_state.dart';
+import 'package:chess_offline/game_state/game_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -49,21 +49,21 @@ void main() {
           GameState.ongoing);
     });
     test("not mate", () {
-      GameProvider game = GameProvider(BoardFactory()
-          .fromFEN("k2r4/7R/8/8/8/2P1P3/2PKP3/2PPP3 w - - 0 1"));
+      GameProvider game = GameProvider(
+          BoardFactory().fromFEN("k2r4/7R/8/8/8/2P1P3/2PKP3/2PPP3 w - - 0 1"));
       expect(game.determinateGameState(game.board, ColorChess.white),
           GameState.ongoing);
     });
     test("not mate", () {
-      GameProvider game = GameProvider(BoardFactory()
-          .fromFEN("k2r3R/8/8/8/8/2P1P3/2PKP3/2PPP3 w - - 0 1"));
+      GameProvider game = GameProvider(
+          BoardFactory().fromFEN("k2r3R/8/8/8/8/2P1P3/2PKP3/2PPP3 w - - 0 1"));
       expect(game.determinateGameState(game.board, ColorChess.white),
           GameState.ongoing);
       expect(game.determinateGameState(game.board, ColorChess.black),
           GameState.ongoing);
     });
   });
-  group("normal game", (){
+  group("normal game", () {
     test("normal", () {
       GameProvider game = GameProvider(BoardFactory()
           .fromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"));
@@ -73,16 +73,16 @@ void main() {
           GameState.ongoing);
     });
     test("normal", () {
-      GameProvider game = GameProvider(BoardFactory()
-          .fromFEN("rnbqkbnr/ppp2ppp/3p4/1P2Q1PP/8/2p5/PPP3PP/RNB1KBNR w KQkq - 0 1"));
+      GameProvider game = GameProvider(BoardFactory().fromFEN(
+          "rnbqkbnr/ppp2ppp/3p4/1P2Q1PP/8/2p5/PPP3PP/RNB1KBNR w KQkq - 0 1"));
       expect(game.determinateGameState(game.board, ColorChess.white),
           GameState.ongoing);
       expect(game.determinateGameState(game.board, ColorChess.black),
           GameState.ongoing);
     });
     test("normal", () {
-      GameProvider game = GameProvider(BoardFactory()
-          .fromFEN("RRRRRRRK/6k1/8/8/8/8/8/8 w - - 0 1"));
+      GameProvider game = GameProvider(
+          BoardFactory().fromFEN("RRRRRRRK/6k1/8/8/8/8/8/8 w - - 0 1"));
       expect(game.determinateGameState(game.board, ColorChess.white),
           GameState.ongoing);
       expect(game.determinateGameState(game.board, ColorChess.black),

@@ -1,7 +1,7 @@
 import 'package:chess_offline/Boards/board.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
-import 'package:chess_offline/game_state.dart';
-import 'package:chess_offline/game_state_checker.dart';
+import 'package:chess_offline/game_state/game_state.dart';
+import 'package:chess_offline/game_state/game_state_checker.dart';
 
 class StalemateGameStateChecker extends GameStateChecker {
   @override
