@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:chess_offline/Boards/board_utils.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/piece.dart';
@@ -56,7 +57,13 @@ class Pawn extends Piece {
   @override
   bool isSquareAvailableForMove(Coordinates coordinates, Board board) {
     if (coordinates.file == this.coordinates.file) {
-      return board.isSquareEmpty(coordinates);
+      var rankShift = (this.coordinates.rank - coordinates.rank).abs();
+      if (rankShift == 2){
+        var between = BoardUtils.getVerticalCoordinatesBetween(this.coordinates, coordinates);
+        return board.isSquareEmpty(between[0]);
+      } else {
+        return board.isSquareEmpty(coordinates);
+      }
     } else {
       if (board.isSquareEmpty(coordinates)) {
         return false;

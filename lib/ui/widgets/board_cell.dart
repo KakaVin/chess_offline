@@ -19,8 +19,7 @@ class BoardCell extends StatelessWidget {
   Color getCellColor() {
     if (isHighLight) {
       return BoardWidgetRenderer.highlightedSquareBackground;
-    } else
-    if (isSquareDark) {
+    } else if (isSquareDark) {
       return BoardWidgetRenderer.blackSquareBackgroundColor;
     } else {
       return BoardWidgetRenderer.whiteSquareBackgroundColor;
@@ -37,16 +36,19 @@ class BoardCell extends StatelessWidget {
           height: BoardWidgetRenderer.cellWidth,
           child: Center(
               child: RotatedBox(
-                quarterTurns: context.read<GameProvider>().colorMovie == ColorChess.white ? 0 : 2,
-                child: Text(
-            sprite,
-            style: TextStyle(
+            quarterTurns:
+                context.read<GameProvider>().colorMovie == ColorChess.white
+                    ? 0
+                    : 2,
+            child: Text(
+              sprite,
+              style: TextStyle(
                   fontSize: 40,
                   color: (pieceColor == ColorChess.white)
                       ? BoardWidgetRenderer.whitePieceColor
                       : BoardWidgetRenderer.blackPieceColor),
-          ),
-              ))),
+            ),
+          ))),
     );
   }
 }

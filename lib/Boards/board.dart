@@ -23,7 +23,8 @@ class Board {
   void removePeace(Coordinates coordinates) {
     pieces.remove(coordinates);
   }
-  void makeMove(Move move){
+
+  void makeMove(Move move) {
     Piece piece = getPiece(move.from);
 
     removePeace(move.from);
@@ -79,6 +80,7 @@ class Board {
     for (var piece in copy.getPiecesByColor(color)) {
       if (piece is King) king = piece;
     }
-    return copy.isSquareAttackedByColor(king.coordinates, BoardUtils.oppositeColorChess(color));
+    return copy.isSquareAttackedByColor(
+        king.coordinates, BoardUtils.oppositeColorChess(color));
   }
 }

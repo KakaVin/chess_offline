@@ -36,7 +36,7 @@ class BoardFactory {
     return board;
   }
 
-  Board copy(Board source){
+  Board copy(Board source) {
     Board result = fromFEN(source.startingFen);
 
     for (var move in source.moves) {
