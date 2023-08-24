@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:routemaster/routemaster.dart';
 
 class MenuPage extends StatelessWidget{
   const MenuPage({Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class MenuPage extends StatelessWidget{
       body: Center(child: Column(
         children: [
           ElevatedButton(
-            onPressed: () {  },
+            onPressed: () { Routemaster.of(context).push("/game"); },
             child: Text("Новая партия"),
           ),
           ElevatedButton(
