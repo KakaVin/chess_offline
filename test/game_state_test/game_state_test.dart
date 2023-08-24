@@ -3,7 +3,7 @@ import 'package:chess_offline/Boards/move.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
-import 'package:chess_offline/game_provider.dart';
+import 'package:chess_offline/provider/game_provider.dart';
 import 'package:chess_offline/game_state/game_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 

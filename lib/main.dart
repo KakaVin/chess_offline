@@ -1,6 +1,6 @@
 import 'package:chess_offline/Boards/board_factory.dart';
-import 'package:chess_offline/game_provider.dart';
-import 'package:chess_offline/ui/game_page.dart';
+import 'package:chess_offline/provider/game_provider.dart';
+import 'package:chess_offline/ui/menu_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,10 +23,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'chess',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: GameWidget());
+        home: const MenuPage());
   }
 }
