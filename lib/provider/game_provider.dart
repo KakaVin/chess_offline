@@ -1,3 +1,4 @@
+import 'package:chess_offline/Boards/board_factory.dart';
 import 'package:chess_offline/Boards/board_utils.dart';
 import 'package:chess_offline/Boards/move.dart';
 import 'package:chess_offline/Pieces/piece.dart';
@@ -9,6 +10,7 @@ import 'package:chess_offline/game_state/game_state.dart';
 import 'package:chess_offline/game_state/game_state_checker.dart';
 import 'package:chess_offline/game_state/stalemate_game_state_checker.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Boards/board_widget_renderer.dart';
 
@@ -30,7 +32,7 @@ class GameProvider extends ChangeNotifier {
     newGame(board, ColorChess.white);
   }
 
-  void newGame(Board board, ColorChess color){
+  void newGame(Board board, ColorChess color) {
     this.board = board;
     colorMovie = color;
 
@@ -60,6 +62,8 @@ class GameProvider extends ChangeNotifier {
       if (state != GameState.ongoing) {
         print("game ending state: $state");
       }
+      //save stage if the number of moves matters
+      if (board.moves.length > 2) saveGame();
     }
   }
 
@@ -86,5 +90,26 @@ class GameProvider extends ChangeNotifier {
       if (state != GameState.ongoing) return state;
     }
     return GameState.ongoing;
+  }
+
+  void saveGame() async {
+    SharedPreferences save = await SharedPreferences.getInstance();
+    save.setString("game", BoardFactory().toFen(board));
+    save.setString("color", colorMovie.toString());
+  }
+
+  void loadGame() async {
+    SharedPreferences save = await SharedPreferences.getInstance();
+    ColorChess color;
+
+    var loadColor = save.getString("color") ?? ColorChess.white.toString();
+    if (loadColor == ColorChess.white.toString()) {
+      color = ColorChess.white;
+    } else {
+      color = ColorChess.black;
+    }
+
+    newGame(BoardFactory().fromFEN(save.getString("game") ?? board.startingFen),
+        color);
   }
 }

@@ -45,4 +45,28 @@ class BoardFactory {
 
     return result;
   }
+
+  String toFen(Board board) {
+    var result = "";
+    for (var rank = 8; rank > 0; rank--) {
+      var spaceCount = 0;
+      for (var file in File.values) {
+        if (board.isSquareEmpty(Coordinates(file, rank))) {
+          spaceCount++;
+        } else {
+          if (spaceCount != 0) {
+            result += spaceCount.toString();
+            spaceCount = 0;
+          }
+          result += PieceFactory()
+              .pieceFromFen(board.getPiece(Coordinates(file, rank)));
+        }
+      }
+      if (spaceCount != 0) {
+        result += spaceCount.toString();
+      }
+      result += "/";
+    }
+    return result;
+  }
 }

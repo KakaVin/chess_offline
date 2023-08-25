@@ -30,7 +30,10 @@ class MenuPage extends StatelessWidget {
           ),
           const Spacer(),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Routemaster.of(context).push("/game");
+              context.read<GameProvider>().loadGame();
+            },
             child: Text("Продолжить"),
           ),
           const Spacer(
