@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import '../Boards/board_widget_renderer.dart';
 
 class GameProvider extends ChangeNotifier {
-  final Board board;
+  late Board board;
   //final BoardConsoleRenderer renderer = BoardConsoleRenderer();
   final BoardWidgetRenderer renderer = BoardWidgetRenderer();
   late Column boardWidget;
@@ -27,9 +27,17 @@ class GameProvider extends ChangeNotifier {
   ColorChess colorMovie = ColorChess.white;
 
   GameProvider(this.board) {
+    newGame(board, ColorChess.white);
+  }
+
+  void newGame(Board board, ColorChess color){
+    this.board = board;
+    colorMovie = color;
+
     boardWidget = renderer.render(board, null);
     state = determinateGameState(board, colorMovie);
   }
+
   void inputCoordinateTap(Coordinates coordinates) {
     if (state == GameState.ongoing) {
       //выбрать свою фигуру
