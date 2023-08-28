@@ -4,7 +4,7 @@ import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/coordinates_shift.dart';
 import 'package:chess_offline/Boards/board.dart';
 
-import '../Boards/board_utils.dart';
+import '../../Boards/board_utils.dart';
 
 class LongRangePiece extends Piece {
   LongRangePiece(ColorChess color, Coordinates coordinates)

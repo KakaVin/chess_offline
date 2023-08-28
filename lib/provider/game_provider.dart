@@ -25,16 +25,16 @@ class GameProvider extends ChangeNotifier {
     StalemateGameStateChecker(),
     CheckmateGameStateChecker()
   ];
-
   ColorChess colorMovie = ColorChess.white;
 
-  GameProvider(this.board) {
-    newGame(board, ColorChess.white);
+  GameProvider(String fen) {
+    newGame(fen);
   }
 
-  void newGame(Board board, ColorChess color) {
-    this.board = board;
-    colorMovie = color;
+  void newGame(String fen) {
+    board = BoardFactory().boardFromFEN(fen);
+    colorMovie = BoardFactory().colorFromFEN(fen);
+    board.casting = BoardFactory().canCastingFromFEN(fen);
 
     boardWidget = renderer.render(board, null);
     state = determinateGameState(board, colorMovie);
@@ -52,6 +52,7 @@ class GameProvider extends ChangeNotifier {
           .getAvailableMoveSquares(board)
           .contains(coordinates)) {
         makeMove(board, Move(selectedPiece!.coordinates, coordinates));
+        //todo проверить может ли хороль сделать этот ход возможно являющийся рокировкой
       } else {
         selectedPiece = null;
       }
@@ -100,16 +101,7 @@ class GameProvider extends ChangeNotifier {
 
   void loadGame() async {
     SharedPreferences save = await SharedPreferences.getInstance();
-    ColorChess color;
 
-    var loadColor = save.getString("color") ?? ColorChess.white.toString();
-    if (loadColor == ColorChess.white.toString()) {
-      color = ColorChess.white;
-    } else {
-      color = ColorChess.black;
-    }
-
-    newGame(BoardFactory().fromFEN(save.getString("game") ?? board.startingFen),
-        color);
+    newGame(save.getString("game") ?? board.startingFen);
   }
 }

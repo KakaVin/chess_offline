@@ -55,7 +55,7 @@ void main() {
   });
 
   group("king after move", () {
-    Board board = BoardFactory().fromFEN("8/3k4/8/8/8/8/3N4/3K3r w - - 0 1");
+    Board board = BoardFactory().boardFromFEN("8/3k4/8/8/8/8/3N4/3K3r w - - 0 1");
     test("king move to attach square", () {
       expect(
           Board.validateIfKingInCheckAfterMove(board, ColorChess.white,

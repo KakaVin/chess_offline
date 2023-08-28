@@ -1,5 +1,3 @@
-import 'package:chess_offline/Boards/board_factory.dart';
-import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/provider/game_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,9 +20,8 @@ class MenuPage extends StatelessWidget {
             onPressed: () {
               Routemaster.of(context).push("/game");
               context.read<GameProvider>().newGame(
-                  BoardFactory().fromFEN(
-                      "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"),
-                  ColorChess.white);
+                    "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+                  );
             },
             child: const Text("Новая партия"),
           ),

@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group("Available Move Squares Knight", () {
     Coordinates coordinates = Coordinates(File.B, 2);
-    Board board = BoardFactory().fromFEN("8/8/8/8/P7/8/1N6/3p4 w - - 0 1");
+    Board board = BoardFactory().boardFromFEN("8/8/8/8/P7/8/1N6/3p4 w - - 0 1");
 
     var knight = board.getPiece(coordinates);
     Coordinates move1 = Coordinates(File.C, 4);
