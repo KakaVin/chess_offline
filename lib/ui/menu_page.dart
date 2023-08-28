@@ -20,7 +20,8 @@ class MenuPage extends StatelessWidget {
             onPressed: () {
               Routemaster.of(context).push("/game");
               context.read<GameProvider>().newGame(
-                    "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+                    //"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+                "r3k2r/1pppppp1/8/8/8/8/1PPPPPP1/R3K2R w KQkq - 0 1"
                   );
             },
             child: const Text("Новая партия"),

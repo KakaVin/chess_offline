@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Boards/board_widget_renderer.dart';
+import '../game_state/casting_checker.dart';
 
 class GameProvider extends ChangeNotifier {
   late Board board;
@@ -23,7 +24,8 @@ class GameProvider extends ChangeNotifier {
   late GameState state;
   final List<GameStateChecker> checkers = [
     StalemateGameStateChecker(),
-    CheckmateGameStateChecker()
+    CheckmateGameStateChecker(),
+    CastingChecker(),
   ];
   ColorChess colorMovie = ColorChess.white;
 
@@ -96,7 +98,6 @@ class GameProvider extends ChangeNotifier {
   void saveGame() async {
     SharedPreferences save = await SharedPreferences.getInstance();
     save.setString("game", BoardFactory().toFen(board));
-    save.setString("color", colorMovie.toString());
   }
 
   void loadGame() async {

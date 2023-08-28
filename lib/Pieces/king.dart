@@ -49,6 +49,17 @@ class King extends Piece {
   }
 
   bool isSquareAvailableFromCasting(Coordinates coordinates, Board board){
+    if (board.isSquareAttackedByColor(this.coordinates, BoardUtils.oppositeColorChess(color))){
+      return false;
+    }
+
+    var between = BoardUtils.getHorizontalCoordinatesBetween(this.coordinates, coordinates);
+    for (var value in between) {
+      if (!board.isSquareEmpty(value) || board.isSquareAttackedByColor(value, BoardUtils.oppositeColorChess(color))){
+        return false;
+      }
+    }
+
     if (color == ColorChess.white){
       if (coordinates == Coordinates(File.G, 1)) return board.casting[0];
       if (coordinates == Coordinates(File.C, 1)) return board.casting[1];
