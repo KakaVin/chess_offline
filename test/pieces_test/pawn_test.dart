@@ -9,7 +9,7 @@ void main() {
   group("Pawn move", () {
     test("basic count move", () {
       Board board =
-          BoardFactory().fromFEN("3k4/3p4/8/p6P/8/8/3P4/3K4 w - - 0 1");
+          BoardFactory().boardFromFEN("3k4/3p4/8/p6P/8/8/3P4/3K4 w - - 0 1");
       Coordinates whitePawnDefaultPosition = Coordinates(File.D, 2);
       Coordinates whitePawnHasMoved = Coordinates(File.H, 5);
 
@@ -43,7 +43,7 @@ void main() {
     });
     test("attach move", () {
       Board board =
-          BoardFactory().fromFEN("3k4/8/8/8/p1P3n1/1P4P1/8/3K4 w - - 0 1");
+          BoardFactory().boardFromFEN("3k4/8/8/8/p1P3n1/1P4P1/8/3K4 w - - 0 1");
       Piece whitePawnToAttach = board.getPiece(Coordinates(File.B, 3));
       Piece whitePawnDoNotMovie = board.getPiece(Coordinates(File.G, 3));
       Piece whitePawn = board.getPiece(Coordinates(File.C, 4));
@@ -67,7 +67,7 @@ void main() {
       expect(whitePawn.getAvailableMoveSquares(board).length, 1);
     });
     test("pawn cannot move through a piece", () {
-      Board board = BoardFactory().fromFEN("3k4/8/8/8/8/3p4/3P4/3K4 w - - 0 1");
+      Board board = BoardFactory().boardFromFEN("3k4/8/8/8/8/3p4/3P4/3K4 w - - 0 1");
       expect(
           board
               .getPiece(Coordinates(File.D, 2))

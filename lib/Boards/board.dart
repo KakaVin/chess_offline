@@ -13,6 +13,7 @@ class Board {
   HashMap<Coordinates, Piece> pieces = HashMap();
   String startingFen;
   List<Move> moves = [];
+  List<bool> casting = [false, false, false, false];
 
   Board(this.startingFen);
 

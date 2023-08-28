@@ -45,4 +45,46 @@ class PieceFactory {
         throw RangeError("Unknown FEN char");
     }
   }
+
+  String pieceFromFen(Piece piece) {
+    if (piece is Pawn) {
+      if (piece.color == ColorChess.white) {
+        return "P";
+      } else {
+        return "p";
+      }
+    } else if (piece is Rook) {
+      if (piece.color == ColorChess.white) {
+        return "R";
+      } else {
+        return "r";
+      }
+    } else if (piece is Knight) {
+      if (piece.color == ColorChess.white) {
+        return "N";
+      } else {
+        return "n";
+      }
+    } else if (piece is Bishop) {
+      if (piece.color == ColorChess.white) {
+        return "B";
+      } else {
+        return "b";
+      }
+    } else if (piece is Queen) {
+      if (piece.color == ColorChess.white) {
+        return "Q";
+      } else {
+        return "q";
+      }
+    } else if (piece is King) {
+      if (piece.color == ColorChess.white) {
+        return "K";
+      } else {
+        return "k";
+      }
+    }
+
+    throw RangeError("Unknown piece to FEN");
+  }
 }

@@ -1,20 +1,22 @@
+import 'package:chess_offline/Boards/board_factory.dart';
 import 'package:chess_offline/Boards/board_utils.dart';
 import 'package:chess_offline/Boards/move.dart';
 import 'package:chess_offline/Pieces/piece.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
-import 'package:chess_offline/Pieces/util/file.dart';
 import 'package:chess_offline/Boards/board.dart';
 import 'package:chess_offline/game_state/checkmate_game_state_checker.dart';
 import 'package:chess_offline/game_state/game_state.dart';
 import 'package:chess_offline/game_state/game_state_checker.dart';
 import 'package:chess_offline/game_state/stalemate_game_state_checker.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Boards/board_widget_renderer.dart';
+import '../Boards/board_widget_renderer.dart';
+import '../game_state/casting_checker.dart';
 
 class GameProvider extends ChangeNotifier {
-  final Board board;
+  late Board board;
   //final BoardConsoleRenderer renderer = BoardConsoleRenderer();
   final BoardWidgetRenderer renderer = BoardWidgetRenderer();
   late Column boardWidget;
@@ -22,15 +24,24 @@ class GameProvider extends ChangeNotifier {
   late GameState state;
   final List<GameStateChecker> checkers = [
     StalemateGameStateChecker(),
-    CheckmateGameStateChecker()
+    CheckmateGameStateChecker(),
+    CastingChecker(),
   ];
-
   ColorChess colorMovie = ColorChess.white;
 
-  GameProvider(this.board) {
+  GameProvider(String fen) {
+    newGame(fen);
+  }
+
+  void newGame(String fen) {
+    board = BoardFactory().boardFromFEN(fen);
+    colorMovie = BoardFactory().colorFromFEN(fen);
+    board.casting = BoardFactory().canCastingFromFEN(fen);
+
     boardWidget = renderer.render(board, null);
     state = determinateGameState(board, colorMovie);
   }
+
   void inputCoordinateTap(Coordinates coordinates) {
     if (state == GameState.ongoing) {
       //выбрать свою фигуру
@@ -43,6 +54,7 @@ class GameProvider extends ChangeNotifier {
           .getAvailableMoveSquares(board)
           .contains(coordinates)) {
         makeMove(board, Move(selectedPiece!.coordinates, coordinates));
+        //todo проверить может ли хороль сделать этот ход возможно являющийся рокировкой
       } else {
         selectedPiece = null;
       }
@@ -53,22 +65,8 @@ class GameProvider extends ChangeNotifier {
       if (state != GameState.ongoing) {
         print("game ending state: $state");
       }
-    }
-  }
-
-  void gameLoop() {
-    while (true) {
-      // render
-      renderer.render(board, null);
-
-      // input
-      Piece piece = board.getPiece(Coordinates(File.A, 1));
-
-      renderer.render(board, piece);
-      // make move
-
-      // pass move
-      notifyListeners();
+      //save stage if the number of moves matters
+      if (board.moves.length > 2) saveGame();
     }
   }
 
@@ -95,5 +93,16 @@ class GameProvider extends ChangeNotifier {
       if (state != GameState.ongoing) return state;
     }
     return GameState.ongoing;
+  }
+
+  void saveGame() async {
+    SharedPreferences save = await SharedPreferences.getInstance();
+    save.setString("game", BoardFactory().toFen(board));
+  }
+
+  void loadGame() async {
+    SharedPreferences save = await SharedPreferences.getInstance();
+
+    newGame(save.getString("game") ?? board.startingFen);
   }
 }

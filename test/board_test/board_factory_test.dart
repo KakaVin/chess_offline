@@ -13,7 +13,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group("board 7 piece", () {
     Board board =
-        BoardFactory().fromFEN("rnb1k3/8/8/3p4/3P4/8/8/4K3 w q - 0 1");
+        BoardFactory().boardFromFEN("rnb1k3/8/8/3p4/3P4/8/8/4K3 w q - 0 1");
 
     test("count Piece", () {
       expect(board.pieces.length, 7);
@@ -62,7 +62,7 @@ void main() {
 
   group("start board", () {
     Board board = BoardFactory()
-        .fromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+        .boardFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
     test("count Piece", () {
       expect(board.pieces.length, 32);

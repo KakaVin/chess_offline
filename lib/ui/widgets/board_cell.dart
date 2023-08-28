@@ -1,6 +1,6 @@
 import 'package:chess_offline/Boards/board_widget_renderer.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
-import 'package:chess_offline/game_provider.dart';
+import 'package:chess_offline/provider/game_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
