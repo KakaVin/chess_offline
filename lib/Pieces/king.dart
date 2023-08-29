@@ -66,12 +66,14 @@ class King extends Piece {
     }
 
     if (color == ColorChess.white) {
-      if (coordinates == Coordinates(File.G, 1)) return board.casting[0];
-      if (coordinates == Coordinates(File.C, 1)) return board.casting[1];
+      if (coordinates == Coordinates(File.G, 1)) return board.casting.whiteLong;
+      if (coordinates == Coordinates(File.C, 1))
+        return board.casting.whiteShort;
     }
     if (color == ColorChess.black) {
-      if (coordinates == Coordinates(File.G, 8)) return board.casting[2];
-      if (coordinates == Coordinates(File.C, 8)) return board.casting[3];
+      if (coordinates == Coordinates(File.G, 8)) return board.casting.blackLong;
+      if (coordinates == Coordinates(File.C, 8))
+        return board.casting.blackShort;
     }
 
     throw RangeError("Unknown move from casting");

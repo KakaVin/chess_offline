@@ -1,3 +1,4 @@
+import 'package:chess_offline/Boards/casting.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Boards/board.dart';
 import 'package:chess_offline/Pieces/util/piece_factory.dart';
@@ -46,15 +47,15 @@ class BoardFactory {
     }
   }
 
-  List<bool> canCastingFromFEN(String fen) {
-    List<bool> result = [false, false, false, false];
+  Casting canCastingFromFEN(String fen) {
+    Casting result = Casting(false, false, false, false);
     List<String> parts = fen.split(" ");
     String casting = parts[2];
 
-    if (casting.contains("Q")) result[0] = true;
-    if (casting.contains("K")) result[1] = true;
-    if (casting.contains("q")) result[2] = true;
-    if (casting.contains("k")) result[3] = true;
+    if (casting.contains("Q")) result.whiteLong = true;
+    if (casting.contains("K")) result.whiteShort = true;
+    if (casting.contains("q")) result.blackLong = true;
+    if (casting.contains("k")) result.blackShort = true;
 
     return result;
   }

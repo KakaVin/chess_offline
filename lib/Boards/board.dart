@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'package:chess_offline/Boards/casting.dart';
 import 'package:chess_offline/Boards/move.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/color_utils.dart';
@@ -13,7 +14,7 @@ class Board {
   HashMap<Coordinates, Piece> pieces = HashMap();
   String startingFen;
   List<Move> moves = [];
-  List<bool> casting = [false, false, false, false];
+  Casting casting = Casting(false, false, false, false);
 
   Board(this.startingFen);
 

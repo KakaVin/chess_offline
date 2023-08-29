@@ -12,37 +12,37 @@ class CastingChecker extends GameStateChecker {
       var lastMove = board.moves.last;
 
       //moves white rook
-      if (board.casting[0] &&
+      if (board.casting.whiteShort &&
           (lastMove.to == Coordinates(File.H, 1) ||
               lastMove.from == Coordinates(File.H, 1))) {
-        board.casting[0] = false;
+        board.casting.whiteShort = false;
       }
-      if (board.casting[1] &&
+      if (board.casting.whiteLong &&
           (lastMove.to == Coordinates(File.A, 1) ||
               lastMove.from == Coordinates(File.A, 1))) {
-        board.casting[1] = false;
+        board.casting.whiteLong = false;
       }
       //moves white king
-      if ((board.casting[0] || board.casting[1]) &&
+      if ((board.casting.whiteLong || board.casting.whiteShort) &&
           lastMove.from == Coordinates(File.E, 1)) {
-        board.casting[0] = board.casting[1] = false;
+        board.casting.whiteLong = board.casting.whiteShort = false;
       }
 
       //moves black rook
-      if (board.casting[2] &&
+      if (board.casting.blackShort &&
           (lastMove.to == Coordinates(File.H, 8) ||
               lastMove.from == Coordinates(File.H, 8))) {
-        board.casting[2] = false;
+        board.casting.blackShort = false;
       }
-      if (board.casting[3] &&
+      if (board.casting.blackLong &&
           (lastMove.to == Coordinates(File.A, 8) ||
               lastMove.from == Coordinates(File.A, 8))) {
-        board.casting[3] = false;
+        board.casting.blackLong = false;
       }
       //moves black king
-      if ((board.casting[2] || board.casting[3]) &&
+      if ((board.casting.blackLong || board.casting.blackShort) &&
           lastMove.from == Coordinates(File.E, 8)) {
-        board.casting[2] = board.casting[3] = false;
+        board.casting.blackLong = board.casting.blackShort = false;
       }
     }
 

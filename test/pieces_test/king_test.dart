@@ -56,27 +56,27 @@ void main() {
       game.inputCoordinateTap(whiteKing.coordinates);
       game.inputCoordinateTap(Coordinates(File.D, 1));
       expect(whiteKing.getAvailableMoveSquares(game.board).length, 2);
-      expect(game.board.casting[0], false);
-      expect(game.board.casting[1], false);
+      expect(game.board.casting.whiteLong, false);
+      expect(game.board.casting.whiteShort, false);
 
       game.inputCoordinateTap(whiteKing.coordinates);
       game.inputCoordinateTap(Coordinates(File.E, 1));
       expect(whiteKing.getAvailableMoveSquares(game.board).length, 2);
-      expect(game.board.casting[0], false);
-      expect(game.board.casting[1], false);
+      expect(game.board.casting.whiteLong, false);
+      expect(game.board.casting.whiteShort, false);
     });
     test("move one black rook", () {
       game.inputCoordinateTap(Coordinates(File.H, 8));
       game.inputCoordinateTap(Coordinates(File.H, 5));
-      expect(game.board.casting[2], false);
-      expect(game.board.casting[3], true);
+      expect(game.board.casting.blackShort, false);
+      expect(game.board.casting.blackLong, true);
       expect(blackKing.getAvailableMoveSquares(game.board).length, 3);
     });
     test("move two black rook", () {
       game.colorMovie = ColorChess.black;
       game.inputCoordinateTap(Coordinates(File.A, 8));
       game.inputCoordinateTap(Coordinates(File.A, 7));
-      expect(game.board.casting[3], false);
+      expect(game.board.casting.blackLong, false);
       expect(blackKing.getAvailableMoveSquares(game.board).length, 2);
     });
   });
@@ -88,8 +88,8 @@ void main() {
     Piece whiteKing = game.board.getPiece(Coordinates(File.E, 1));
 
     test("white king", () {
-      expect(game.board.casting[0], true);
-      expect(game.board.casting[1], true);
+      expect(game.board.casting.whiteShort, true);
+      expect(game.board.casting.whiteLong, true);
       expect(
           whiteKing.isSquareAvailableForMove(
               Coordinates(File.C, 1), game.board),
@@ -100,8 +100,8 @@ void main() {
           false);
     });
     test("black king", () {
-      expect(game.board.casting[2], true);
-      expect(game.board.casting[3], true);
+      expect(game.board.casting.blackLong, true);
+      expect(game.board.casting.blackShort, true);
       expect(
           blackKing.isSquareAvailableForMove(
               Coordinates(File.C, 8), game.board),
