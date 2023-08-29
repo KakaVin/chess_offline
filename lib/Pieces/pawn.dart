@@ -6,6 +6,7 @@ import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/piece.dart';
 
 import '../Boards/board.dart';
+import '../Boards/move.dart';
 import 'util/coordinates_shift.dart';
 
 class Pawn extends Piece {
@@ -57,9 +58,7 @@ class Pawn extends Piece {
   @override
   bool isSquareAvailableForMove(Coordinates coordinates, Board board) {
     if (coordinates.file == this.coordinates.file) {
-      var rankShift = (this.coordinates.rank - coordinates.rank).abs();
-
-      if (rankShift == 2) {
+      if (Move.rankShift(Move(this.coordinates, coordinates)) == 2) {
         var between = BoardUtils.getVerticalCoordinatesBetween(
             this.coordinates, coordinates);
 

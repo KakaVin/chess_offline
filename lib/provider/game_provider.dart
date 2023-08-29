@@ -5,6 +5,7 @@ import 'package:chess_offline/Pieces/piece.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Boards/board.dart';
+import 'package:chess_offline/Pieces/util/file.dart';
 import 'package:chess_offline/game_state/checkmate_game_state_checker.dart';
 import 'package:chess_offline/game_state/draw_game_state_checker.dart';
 import 'package:chess_offline/game_state/game_state.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Boards/board_widget_renderer.dart';
+import '../Pieces/king.dart';
 import '../Pieces/util/color_utils.dart';
 import '../game_state/casting_checker.dart';
 
@@ -88,11 +90,8 @@ class GameProvider extends ChangeNotifier {
     } else {
       if (colorMovie == ColorChess.black) board.fullMove++;
 
-      if (isHalfMove(board, move)) {
-        board.halfMove++;
-      } else {
-        board.halfMove = 0;
-      }
+      isHalfMove(board, move);
+      isCasting(board, move);
 
       board.makeMove(move);
       colorMovie = ColorUtils.opposite(colorMovie);
@@ -121,12 +120,30 @@ class GameProvider extends ChangeNotifier {
 
   bool isHalfMove(Board board, Move move) {
     if (!board.isSquareEmpty(move.from) && board.getPiece(move.from) is Pawn) {
+      board.halfMove = 0;
       return false;
     }
     if (!board.isSquareEmpty(move.to) && board.getPiece(move.to) is Pawn) {
+      board.halfMove = 0;
       return false;
     }
 
+    board.halfMove++;
     return true;
+  }
+
+  void isCasting(Board board, Move move) {
+    if (board.getPiece(move.from) is King && Move.fileShift(move) == 2) {
+      for (var rank = 1; rank <= 8; rank += 7) {
+        if (move.to == Coordinates(File.G, rank)) {
+          board.makeMove(
+              Move(Coordinates(File.H, rank), Coordinates(File.F, rank)));
+        }
+        if (move.to == Coordinates(File.C, rank)) {
+          board.makeMove(
+              Move(Coordinates(File.A, rank), Coordinates(File.D, rank)));
+        }
+      }
+    }
   }
 }
