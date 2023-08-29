@@ -7,7 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group("Available Move Squares Rook", () {
     Coordinates coordinates = Coordinates(File.B, 1);
-    Board board = BoardFactory().boardFromFEN("3k4/8/8/1p6/8/8/8/1R1K4 w - - 0 1");
+    Board board =
+        BoardFactory().boardFromFEN("3k4/8/8/1p6/8/8/8/1R1K4 w - - 0 1");
 
     var piece = board.getPiece(coordinates);
     //left

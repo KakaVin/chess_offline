@@ -61,8 +61,8 @@ void main() {
   });
 
   group("start board", () {
-    Board board = BoardFactory()
-        .boardFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+    Board board = BoardFactory().boardFromFEN(
+        "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
     test("count Piece", () {
       expect(board.pieces.length, 32);

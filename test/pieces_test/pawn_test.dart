@@ -67,7 +67,8 @@ void main() {
       expect(whitePawn.getAvailableMoveSquares(board).length, 1);
     });
     test("pawn cannot move through a piece", () {
-      Board board = BoardFactory().boardFromFEN("3k4/8/8/8/8/3p4/3P4/3K4 w - - 0 1");
+      Board board =
+          BoardFactory().boardFromFEN("3k4/8/8/8/8/3p4/3P4/3K4 w - - 0 1");
       expect(
           board
               .getPiece(Coordinates(File.D, 2))

@@ -23,7 +23,8 @@ class CastingChecker extends GameStateChecker {
         board.casting[1] = false;
       }
       //moves white king
-      if ((board.casting[0] || board.casting[1]) && lastMove.from == Coordinates(File.E, 1)) {
+      if ((board.casting[0] || board.casting[1]) &&
+          lastMove.from == Coordinates(File.E, 1)) {
         board.casting[0] = board.casting[1] = false;
       }
 
@@ -39,7 +40,8 @@ class CastingChecker extends GameStateChecker {
         board.casting[3] = false;
       }
       //moves black king
-      if ((board.casting[2] || board.casting[3]) && lastMove.from == Coordinates(File.E, 8)) {
+      if ((board.casting[2] || board.casting[3]) &&
+          lastMove.from == Coordinates(File.E, 8)) {
         board.casting[2] = board.casting[3] = false;
       }
     }

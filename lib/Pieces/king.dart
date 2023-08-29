@@ -39,8 +39,9 @@ class King extends Piece {
     bool result = super.isSquareAvailableForMove(coordinates, board);
     if (!result) return result;
 
-    var fileShift = (this.coordinates.file.index - coordinates.file.index).abs();
-    if (fileShift == 2){
+    var fileShift =
+        (this.coordinates.file.index - coordinates.file.index).abs();
+    if (fileShift == 2) {
       result = isSquareAvailableFromCasting(coordinates, board);
       if (!result) return result;
     }
@@ -49,23 +50,26 @@ class King extends Piece {
         coordinates, ColorUtils.opposite(color));
   }
 
-  bool isSquareAvailableFromCasting(Coordinates coordinates, Board board){
-    if (board.isSquareAttackedByColor(this.coordinates, ColorUtils.opposite(color))){
+  bool isSquareAvailableFromCasting(Coordinates coordinates, Board board) {
+    if (board.isSquareAttackedByColor(
+        this.coordinates, ColorUtils.opposite(color))) {
       return false;
     }
 
-    var between = BoardUtils.getHorizontalCoordinatesBetween(this.coordinates, coordinates);
+    var between = BoardUtils.getHorizontalCoordinatesBetween(
+        this.coordinates, coordinates);
     for (var value in between) {
-      if (!board.isSquareEmpty(value) || board.isSquareAttackedByColor(value, ColorUtils.opposite(color))){
+      if (!board.isSquareEmpty(value) ||
+          board.isSquareAttackedByColor(value, ColorUtils.opposite(color))) {
         return false;
       }
     }
 
-    if (color == ColorChess.white){
+    if (color == ColorChess.white) {
       if (coordinates == Coordinates(File.G, 1)) return board.casting[0];
       if (coordinates == Coordinates(File.C, 1)) return board.casting[1];
     }
-    if (color == ColorChess.black){
+    if (color == ColorChess.black) {
       if (coordinates == Coordinates(File.G, 8)) return board.casting[2];
       if (coordinates == Coordinates(File.C, 8)) return board.casting[3];
     }

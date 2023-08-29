@@ -7,7 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group("Available Move Squares Bishop", () {
     Coordinates coordinates = Coordinates(File.D, 4);
-    Board board = BoardFactory().boardFromFEN("3k4/8/5n2/2N5/3B4/8/8/3K4 w - - 0 1");
+    Board board =
+        BoardFactory().boardFromFEN("3k4/8/5n2/2N5/3B4/8/8/3K4 w - - 0 1");
 
     var piece = board.getPiece(coordinates);
     //top-left

@@ -7,7 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group("Available Move Squares Queen", () {
     Coordinates coordinates = Coordinates(File.C, 4);
-    Board board = BoardFactory().boardFromFEN("3k4/8/8/2R5/2Q1p3/8/8/3K4 w - - 0 1");
+    Board board =
+        BoardFactory().boardFromFEN("3k4/8/8/2R5/2Q1p3/8/8/3K4 w - - 0 1");
 
     var piece = board.getPiece(coordinates);
     //left
