@@ -93,4 +93,18 @@ class BoardFactory {
     }
     return result;
   }
+
+  int fullMoveFromFen(String fen) {
+    List<String> parts = fen.split(" ");
+    String fullMove = parts[5];
+
+    return int.parse(fullMove);
+  }
+
+  int halfMoveFromFen(String fen) {
+    List<String> parts = fen.split(" ");
+    String halfMove = parts[4];
+
+    return int.parse(halfMove);
+  }
 }

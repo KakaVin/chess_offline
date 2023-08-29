@@ -15,6 +15,8 @@ class Board {
   String startingFen;
   List<Move> moves = [];
   Casting casting = Casting(false, false, false, false);
+  int halfMove = 0;
+  int fullMove = 1;
 
   Board(this.startingFen);
 

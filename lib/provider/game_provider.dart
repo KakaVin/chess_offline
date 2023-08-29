@@ -1,11 +1,12 @@
 import 'package:chess_offline/Boards/board_factory.dart';
-import 'package:chess_offline/Boards/board_utils.dart';
 import 'package:chess_offline/Boards/move.dart';
+import 'package:chess_offline/Pieces/pawn.dart';
 import 'package:chess_offline/Pieces/piece.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Boards/board.dart';
 import 'package:chess_offline/game_state/checkmate_game_state_checker.dart';
+import 'package:chess_offline/game_state/draw_game_state_checker.dart';
 import 'package:chess_offline/game_state/game_state.dart';
 import 'package:chess_offline/game_state/game_state_checker.dart';
 import 'package:chess_offline/game_state/stalemate_game_state_checker.dart';
@@ -27,6 +28,7 @@ class GameProvider extends ChangeNotifier {
     StalemateGameStateChecker(),
     CheckmateGameStateChecker(),
     CastingChecker(),
+    DrawGameStateChecker(),
   ];
   ColorChess colorMovie = ColorChess.white;
 
@@ -38,6 +40,8 @@ class GameProvider extends ChangeNotifier {
     board = BoardFactory().boardFromFEN(fen);
     colorMovie = BoardFactory().colorFromFEN(fen);
     board.casting = BoardFactory().canCastingFromFEN(fen);
+    board.fullMove = BoardFactory().fullMoveFromFen(fen);
+    board.halfMove = BoardFactory().halfMoveFromFen(fen);
 
     boardWidget = renderer.render(board, null);
     state = determinateGameState(board, colorMovie);
@@ -82,6 +86,14 @@ class GameProvider extends ChangeNotifier {
         board, board.getPiece(move.from).color, move)) {
       print("your King is after attack");
     } else {
+      if (colorMovie == ColorChess.black) board.fullMove++;
+
+      if (isHalfMove(board, move)) {
+        board.halfMove++;
+      } else {
+        board.halfMove = 0;
+      }
+
       board.makeMove(move);
       colorMovie = ColorUtils.opposite(colorMovie);
     }
@@ -105,5 +117,14 @@ class GameProvider extends ChangeNotifier {
     SharedPreferences save = await SharedPreferences.getInstance();
 
     newGame(save.getString("game") ?? board.startingFen);
+  }
+
+  bool isHalfMove(Board board, Move move) {
+    if (!board.isSquareEmpty(move.from) && board.getPiece(move.from) is Pawn)
+      return false;
+    if (!board.isSquareEmpty(move.to) && board.getPiece(move.to) is Pawn)
+      return false;
+
+    return true;
   }
 }
