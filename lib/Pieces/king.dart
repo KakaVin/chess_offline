@@ -8,6 +8,7 @@ import 'package:chess_offline/Pieces/piece.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
 
 import '../Boards/board.dart';
+import '../Boards/move.dart';
 import 'util/coordinates_shift.dart';
 
 class King extends Piece {
@@ -39,9 +40,7 @@ class King extends Piece {
     bool result = super.isSquareAvailableForMove(coordinates, board);
     if (!result) return result;
 
-    var fileShift =
-        (this.coordinates.file.index - coordinates.file.index).abs();
-    if (fileShift == 2) {
+    if (Move.fileShift(Move(this.coordinates, coordinates)) == 2) {
       result = isSquareAvailableFromCasting(coordinates, board);
       if (!result) return result;
     }
@@ -66,14 +65,20 @@ class King extends Piece {
     }
 
     if (color == ColorChess.white) {
-      if (coordinates == Coordinates(File.G, 1)) return board.casting.whiteLong;
-      if (coordinates == Coordinates(File.C, 1))
+      if (coordinates == Coordinates(File.G, 1)) {
         return board.casting.whiteShort;
+      }
+      if (coordinates == Coordinates(File.C, 1)) {
+        return board.casting.whiteLong;
+      }
     }
     if (color == ColorChess.black) {
-      if (coordinates == Coordinates(File.G, 8)) return board.casting.blackLong;
-      if (coordinates == Coordinates(File.C, 8))
+      if (coordinates == Coordinates(File.G, 8)) {
         return board.casting.blackShort;
+      }
+      if (coordinates == Coordinates(File.C, 8)) {
+        return board.casting.blackLong;
+      }
     }
 
     throw RangeError("Unknown move from casting");
