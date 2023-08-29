@@ -1,5 +1,4 @@
 import 'package:chess_offline/Boards/board_utils.dart';
-import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -68,10 +67,5 @@ void main() {
               .length,
           2);
     });
-  });
-
-  test("opposite color", () {
-    expect(BoardUtils.oppositeColorChess(ColorChess.white), ColorChess.black);
-    expect(BoardUtils.oppositeColorChess(ColorChess.black), ColorChess.white);
   });
 }

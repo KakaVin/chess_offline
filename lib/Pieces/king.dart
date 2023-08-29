@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:chess_offline/Boards/board_utils.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
+import 'package:chess_offline/Pieces/util/color_utils.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/piece.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
@@ -45,17 +46,17 @@ class King extends Piece {
     }
 
     return !board.isSquareAttackedByColor(
-        coordinates, BoardUtils.oppositeColorChess(color));
+        coordinates, ColorUtils.opposite(color));
   }
 
   bool isSquareAvailableFromCasting(Coordinates coordinates, Board board){
-    if (board.isSquareAttackedByColor(this.coordinates, BoardUtils.oppositeColorChess(color))){
+    if (board.isSquareAttackedByColor(this.coordinates, ColorUtils.opposite(color))){
       return false;
     }
 
     var between = BoardUtils.getHorizontalCoordinatesBetween(this.coordinates, coordinates);
     for (var value in between) {
-      if (!board.isSquareEmpty(value) || board.isSquareAttackedByColor(value, BoardUtils.oppositeColorChess(color))){
+      if (!board.isSquareEmpty(value) || board.isSquareAttackedByColor(value, ColorUtils.opposite(color))){
         return false;
       }
     }

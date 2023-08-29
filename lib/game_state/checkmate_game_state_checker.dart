@@ -1,18 +1,19 @@
 import 'package:chess_offline/Boards/board.dart';
 import 'package:chess_offline/Boards/board_factory.dart';
-import 'package:chess_offline/Boards/board_utils.dart';
 import 'package:chess_offline/Boards/move.dart';
 import 'package:chess_offline/Pieces/piece.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/game_state/game_state.dart';
 import 'package:chess_offline/game_state/game_state_checker.dart';
 
+import '../Pieces/util/color_utils.dart';
+
 class CheckmateGameStateChecker extends GameStateChecker {
   @override
   GameState check(Board board, ColorChess color) {
     Piece king = board.getKingByColor(color);
     if (!board.isSquareAttackedByColor(
-        king.coordinates, BoardUtils.oppositeColorChess(color))) {
+        king.coordinates, ColorUtils.opposite(color))) {
       return GameState.ongoing;
     } else {
       var pieces = board.getPiecesByColor(color);
@@ -27,7 +28,7 @@ class CheckmateGameStateChecker extends GameStateChecker {
           var kingClone = copy.getKingByColor(color);
 
           if (!copy.isSquareAttackedByColor(
-              kingClone.coordinates, BoardUtils.oppositeColorChess(color))) {
+              kingClone.coordinates, ColorUtils.opposite(color))) {
             return GameState.ongoing;
           }
         }

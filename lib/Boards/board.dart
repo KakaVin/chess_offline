@@ -1,13 +1,13 @@
 import 'dart:collection';
 import 'package:chess_offline/Boards/move.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
+import 'package:chess_offline/Pieces/util/color_utils.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/piece.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
 
 import '../Pieces/king.dart';
 import 'board_factory.dart';
-import 'board_utils.dart';
 
 class Board {
   HashMap<Coordinates, Piece> pieces = HashMap();
@@ -82,7 +82,7 @@ class Board {
     Piece king = copy.getKingByColor(color);
 
     return copy.isSquareAttackedByColor(
-        king.coordinates, BoardUtils.oppositeColorChess(color));
+        king.coordinates, ColorUtils.opposite(color));
   }
 
   Piece getKingByColor(ColorChess color) {

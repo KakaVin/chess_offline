@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Boards/board_widget_renderer.dart';
+import '../Pieces/util/color_utils.dart';
 import '../game_state/casting_checker.dart';
 
 class GameProvider extends ChangeNotifier {
@@ -82,7 +83,7 @@ class GameProvider extends ChangeNotifier {
       print("your King is after attack");
     } else {
       board.makeMove(move);
-      colorMovie = BoardUtils.oppositeColorChess(colorMovie);
+      colorMovie = ColorUtils.opposite(colorMovie);
     }
     selectedPiece = null;
   }
