@@ -109,7 +109,7 @@ class GameProvider extends ChangeNotifier {
 
   void saveGame() async {
     SharedPreferences save = await SharedPreferences.getInstance();
-    save.setString("game", BoardFactory().toFen(board));
+    save.setString("game", BoardFactory().toFen(board, colorMovie));
   }
 
   void loadGame() async {

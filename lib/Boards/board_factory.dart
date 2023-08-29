@@ -70,7 +70,28 @@ class BoardFactory {
     return result;
   }
 
-  String toFen(Board board) {
+  String toFen(Board board, ColorChess color) {
+    var result = boardToFen(board);
+    result += infoToFen(board, color);
+
+    return result;
+  }
+
+  int fullMoveFromFen(String fen) {
+    List<String> parts = fen.split(" ");
+    String fullMove = parts[5];
+
+    return int.parse(fullMove);
+  }
+
+  int halfMoveFromFen(String fen) {
+    List<String> parts = fen.split(" ");
+    String halfMove = parts[4];
+
+    return int.parse(halfMove);
+  }
+
+  String boardToFen(Board board) {
     var result = "";
     for (var rank = 8; rank > 0; rank--) {
       var spaceCount = 0;
@@ -89,22 +110,35 @@ class BoardFactory {
       if (spaceCount != 0) {
         result += spaceCount.toString();
       }
-      result += "/";
+      if (rank != 1) result += "/";
     }
     return result;
   }
 
-  int fullMoveFromFen(String fen) {
-    List<String> parts = fen.split(" ");
-    String fullMove = parts[5];
+  String infoToFen(Board board, ColorChess color) {
+    String result = "";
 
-    return int.parse(fullMove);
-  }
+    //active color
+    if (color == ColorChess.white) {
+      result += " w";
+    } else {
+      result += " b";
+    }
+    //castingAvailable
+    var casting = " ";
+    if (board.casting.whiteShort) casting += "K";
+    if (board.casting.whiteLong) casting += "Q";
+    if (board.casting.blackShort) casting += "k";
+    if (board.casting.blackLong) casting += "q";
+    if (casting.length == 1) casting += "-";
+    result += casting;
+    //En passant target square
+    result += " -";
+    //Half move
+    result += " " + board.halfMove.toString();
+    //Full move
+    result += " " + board.fullMove.toString();
 
-  int halfMoveFromFen(String fen) {
-    List<String> parts = fen.split(" ");
-    String halfMove = parts[4];
-
-    return int.parse(halfMove);
+    return result;
   }
 }
