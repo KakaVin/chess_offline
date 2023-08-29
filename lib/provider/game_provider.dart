@@ -120,10 +120,12 @@ class GameProvider extends ChangeNotifier {
   }
 
   bool isHalfMove(Board board, Move move) {
-    if (!board.isSquareEmpty(move.from) && board.getPiece(move.from) is Pawn)
+    if (!board.isSquareEmpty(move.from) && board.getPiece(move.from) is Pawn) {
       return false;
-    if (!board.isSquareEmpty(move.to) && board.getPiece(move.to) is Pawn)
+    }
+    if (!board.isSquareEmpty(move.to) && board.getPiece(move.to) is Pawn) {
       return false;
+    }
 
     return true;
   }
