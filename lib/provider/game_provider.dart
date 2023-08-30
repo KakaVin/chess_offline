@@ -1,4 +1,5 @@
 import 'package:chess_offline/Boards/board_factory.dart';
+import 'package:chess_offline/Boards/board_utils.dart';
 import 'package:chess_offline/Boards/move.dart';
 import 'package:chess_offline/Pieces/pawn.dart';
 import 'package:chess_offline/Pieces/piece.dart';
@@ -73,7 +74,7 @@ class GameProvider extends ChangeNotifier {
         print("game ending state: $state");
       }
       //save stage if the number of moves matters
-      if (board.moves.length > 2) saveGame();
+      saveGame();
     }
   }
 
@@ -108,13 +109,18 @@ class GameProvider extends ChangeNotifier {
   }
 
   void saveGame() async {
-    SharedPreferences save = await SharedPreferences.getInstance();
-    save.setString("game", BoardFactory().toFEN(board, colorMovie));
+    if (board.moves.length > 2){
+      SharedPreferences save = await SharedPreferences.getInstance();
+      save.setString("game", BoardFactory().toFEN(board, colorMovie));
+    }
+    if (state != GameState.ongoing){
+      SharedPreferences save = await SharedPreferences.getInstance();
+      save.setString("game", BoardUtils.defaultBoard);
+    }
   }
 
   void loadGame() async {
     SharedPreferences save = await SharedPreferences.getInstance();
-
     newGame(save.getString("game") ?? board.startingFen);
   }
 

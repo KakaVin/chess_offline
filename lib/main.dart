@@ -1,3 +1,4 @@
+import 'package:chess_offline/Boards/board_utils.dart';
 import 'package:chess_offline/provider/game_provider.dart';
 import 'package:chess_offline/ui/game_page.dart';
 import 'package:chess_offline/ui/menu_page.dart';
@@ -11,7 +12,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(
             create: (_) => GameProvider(
-                "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"))
+                BoardUtils.defaultBoard))
       ],
       child: const MyApp(),
     ),
