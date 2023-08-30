@@ -118,18 +118,13 @@ class GameProvider extends ChangeNotifier {
     newGame(save.getString("game") ?? board.startingFen);
   }
 
-  bool isHalfMove(Board board, Move move) {
-    if (!board.isSquareEmpty(move.from) && board.getPiece(move.from) is Pawn) {
+  isHalfMove(Board board, Move move) {
+    if (!board.isSquareEmpty(move.from) && board.getPiece(move.from) is Pawn ||
+        !board.isSquareEmpty(move.to) && board.getPiece(move.to) is Pawn) {
       board.halfMove = 0;
-      return false;
+    } else {
+      board.halfMove++;
     }
-    if (!board.isSquareEmpty(move.to) && board.getPiece(move.to) is Pawn) {
-      board.halfMove = 0;
-      return false;
-    }
-
-    board.halfMove++;
-    return true;
   }
 
   void isCasting(Board board, Move move) {
