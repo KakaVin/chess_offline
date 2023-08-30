@@ -70,28 +70,28 @@ class BoardFactory {
     return result;
   }
 
-  String toFen(Board board, ColorChess color) {
-    var result = boardToFen(board);
-    result += infoToFen(board, color);
+  String toFEN(Board board, ColorChess color) {
+    var result = boardToFEN(board);
+    result += infoToFEN(board, color);
 
     return result;
   }
 
-  int fullMoveFromFen(String fen) {
+  int fullMoveFromFEN(String fen) {
     List<String> parts = fen.split(" ");
     String fullMove = parts[5];
 
     return int.parse(fullMove);
   }
 
-  int halfMoveFromFen(String fen) {
+  int halfMoveFromFEN(String fen) {
     List<String> parts = fen.split(" ");
     String halfMove = parts[4];
 
     return int.parse(halfMove);
   }
 
-  String boardToFen(Board board) {
+  String boardToFEN(Board board) {
     var result = "";
     for (var rank = 8; rank > 0; rank--) {
       var spaceCount = 0;
@@ -115,7 +115,7 @@ class BoardFactory {
     return result;
   }
 
-  String infoToFen(Board board, ColorChess color) {
+  String infoToFEN(Board board, ColorChess color) {
     String result = "";
 
     //active color

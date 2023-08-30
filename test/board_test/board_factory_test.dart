@@ -106,20 +106,20 @@ void main() {
       String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
       GameProvider game = GameProvider(fen);
 
-      expect(BoardFactory().toFen(game.board, game.colorMovie), fen);
+      expect(BoardFactory().toFEN(game.board, game.colorMovie), fen);
     });
     test("clear board", () {
       String fen = "8/8/8/8/8/8/8/8 w - - 0 1";
       GameProvider game = GameProvider(fen);
 
-      expect(BoardFactory().toFen(game.board, game.colorMovie), fen);
+      expect(BoardFactory().toFEN(game.board, game.colorMovie), fen);
     });
     test("chaos board", () {
       String fen =
           "1nbq1rk1/r2p1p1p/1p3b1n/1NpP4/pPB1pP1R/2P3p1/P3P1PP/2RK1BN1 w - - 20 30";
       GameProvider game = GameProvider(fen);
 
-      expect(BoardFactory().toFen(game.board, game.colorMovie), fen);
+      expect(BoardFactory().toFEN(game.board, game.colorMovie), fen);
     });
   });
 }

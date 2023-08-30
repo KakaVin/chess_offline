@@ -42,8 +42,8 @@ class GameProvider extends ChangeNotifier {
     board = BoardFactory().boardFromFEN(fen);
     colorMovie = BoardFactory().colorFromFEN(fen);
     board.casting = BoardFactory().canCastingFromFEN(fen);
-    board.fullMove = BoardFactory().fullMoveFromFen(fen);
-    board.halfMove = BoardFactory().halfMoveFromFen(fen);
+    board.fullMove = BoardFactory().fullMoveFromFEN(fen);
+    board.halfMove = BoardFactory().halfMoveFromFEN(fen);
 
     boardWidget = renderer.render(board, null);
     state = determinateGameState(board, colorMovie);
@@ -109,7 +109,7 @@ class GameProvider extends ChangeNotifier {
 
   void saveGame() async {
     SharedPreferences save = await SharedPreferences.getInstance();
-    save.setString("game", BoardFactory().toFen(board, colorMovie));
+    save.setString("game", BoardFactory().toFEN(board, colorMovie));
   }
 
   void loadGame() async {
