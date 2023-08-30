@@ -2,7 +2,8 @@ import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
 
 class BoardUtils {
-  static const defaultBoard = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+  static const defaultBoard =
+      "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
   static List<Coordinates> getDiagonalCoordinatesBetween(
       Coordinates source, Coordinates target) {

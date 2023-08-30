@@ -9,7 +9,7 @@ class GamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var text = "№ ${context.read<GameProvider>().board.fullMove} ";
     if (context.read<GameProvider>().board.halfMove > 25) {
-      text+= " - " + context.read<GameProvider>().board.halfMove.toString();
+      text += " - " + context.read<GameProvider>().board.halfMove.toString();
     }
     return Scaffold(
       appBar: AppBar(

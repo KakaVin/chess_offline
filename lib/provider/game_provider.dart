@@ -111,12 +111,12 @@ class GameProvider extends ChangeNotifier {
   }
 
   void saveGame() async {
-    if (board.moves.length > 2){
+    if (board.moves.length > 2) {
       SharedPreferences save = await SharedPreferences.getInstance();
       save.setString("game", BoardFactory().toFEN(board, colorMovie));
       isGameAvailableTOLoad = true;
     }
-    if (state != GameState.ongoing){
+    if (state != GameState.ongoing) {
       SharedPreferences save = await SharedPreferences.getInstance();
       save.setString("game", BoardUtils.defaultBoard);
       isGameAvailableTOLoad = false;
@@ -129,6 +129,7 @@ class GameProvider extends ChangeNotifier {
     var load = save.getString("game") ?? board.startingFen;
     newGame(load);
   }
+
   _isGameAvailableTOLoad() async {
     SharedPreferences save = await SharedPreferences.getInstance();
     String load = save.getString("game") ?? board.startingFen;

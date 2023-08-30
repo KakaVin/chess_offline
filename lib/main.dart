@@ -11,8 +11,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
-            create: (_) => GameProvider(
-                BoardUtils.defaultBoard))
+            create: (_) => GameProvider(BoardUtils.defaultBoard))
       ],
       child: const MyApp(),
     ),
