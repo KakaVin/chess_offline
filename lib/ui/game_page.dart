@@ -1,6 +1,7 @@
 import 'package:chess_offline/provider/game_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:routemaster/routemaster.dart';
 
 class GamePage extends StatelessWidget {
   const GamePage({Key? key}) : super(key: key);
@@ -15,7 +16,16 @@ class GamePage extends StatelessWidget {
       appBar: AppBar(
         title: Center(child: Text(text)),
       ),
-      body: Center(child: context.watch<GameProvider>().boardWidget),
+      body: Stack(
+        children: [
+          Center(child: context.watch<GameProvider>().boardWidget),
+          ElevatedButton(
+              onPressed: () {
+                Routemaster.of(context).push("/game/ChoosePiece");
+              },
+              child: const Text("Piece"))
+        ],
+      ),
     );
   }
 }
