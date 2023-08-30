@@ -9,6 +9,16 @@ class MenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isGameAvailableToLoad = context.read<GameProvider>().isGameAvailableTOLoad;
+    Function()? loadPress;
+
+    if (isGameAvailableToLoad){
+      loadPress = () {
+        Routemaster.of(context).push("/game");
+        context.read<GameProvider>().loadGame();
+      };
+    }
+
     return Scaffold(
       body: Center(
           child: Column(
@@ -27,11 +37,8 @@ class MenuPage extends StatelessWidget {
           ),
           const Spacer(),
           ElevatedButton(
-            onPressed: () {
-              Routemaster.of(context).push("/game");
-              context.read<GameProvider>().loadGame();
-            },
-            child: Text("Продолжить"),
+            onPressed: loadPress,
+            child: const Text("Продолжить"),
           ),
           const Spacer(
             flex: 3,

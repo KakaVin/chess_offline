@@ -34,9 +34,11 @@ class GameProvider extends ChangeNotifier {
     DrawGameStateChecker(),
   ];
   ColorChess colorMovie = ColorChess.white;
+  bool isGameAvailableTOLoad = false;
 
   GameProvider(String fen) {
     newGame(fen);
+    _isGameAvailableTOLoad();
   }
 
   void newGame(String fen) {
@@ -112,16 +114,25 @@ class GameProvider extends ChangeNotifier {
     if (board.moves.length > 2){
       SharedPreferences save = await SharedPreferences.getInstance();
       save.setString("game", BoardFactory().toFEN(board, colorMovie));
+      isGameAvailableTOLoad = true;
     }
     if (state != GameState.ongoing){
       SharedPreferences save = await SharedPreferences.getInstance();
       save.setString("game", BoardUtils.defaultBoard);
+      isGameAvailableTOLoad = false;
     }
+    notifyListeners();
   }
 
-  void loadGame() async {
+  loadGame() async {
     SharedPreferences save = await SharedPreferences.getInstance();
-    newGame(save.getString("game") ?? board.startingFen);
+    var load = save.getString("game") ?? board.startingFen;
+    newGame(load);
+  }
+  _isGameAvailableTOLoad() async {
+    SharedPreferences save = await SharedPreferences.getInstance();
+    String load = save.getString("game") ?? board.startingFen;
+    if (load != BoardUtils.defaultBoard) isGameAvailableTOLoad = true;
   }
 
   isHalfMove(Board board, Move move) {
