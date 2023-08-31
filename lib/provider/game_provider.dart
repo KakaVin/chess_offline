@@ -19,6 +19,7 @@ import '../Boards/board_widget_renderer.dart';
 import '../Pieces/king.dart';
 import '../Pieces/util/color_utils.dart';
 import '../game_state/casting_checker.dart';
+import '../game_state/pawn_game_checker.dart';
 
 class GameProvider extends ChangeNotifier {
   late Board board;
@@ -32,6 +33,7 @@ class GameProvider extends ChangeNotifier {
     CheckmateGameStateChecker(),
     CastingChecker(),
     DrawGameStateChecker(),
+    PawnGameChecker(),
   ];
   ColorChess colorMovie = ColorChess.white;
   bool isGameAvailableTOLoad = false;
@@ -64,14 +66,13 @@ class GameProvider extends ChangeNotifier {
           .getAvailableMoveSquares(board)
           .contains(coordinates)) {
         makeMove(board, Move(selectedPiece!.coordinates, coordinates));
-        //todo проверить может ли хороль сделать этот ход возможно являющийся рокировкой
       } else {
         selectedPiece = null;
       }
       //render
+      state = determinateGameState(board, colorMovie);
       boardWidget = renderer.render(board, selectedPiece);
       notifyListeners();
-      state = determinateGameState(board, colorMovie);
       if (state != GameState.ongoing) {
         print("game ending state: $state");
       }

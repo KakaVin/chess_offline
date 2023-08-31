@@ -1,6 +1,5 @@
 import 'package:chess_offline/Boards/board_utils.dart';
 import 'package:chess_offline/provider/game_provider.dart';
-import 'package:chess_offline/ui/choose_piece_page.dart';
 import 'package:chess_offline/ui/game_page.dart';
 import 'package:chess_offline/ui/menu_page.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,6 @@ final routes = RouteMap(
   routes: {
     '/': (_) => const MaterialPage(child: MenuPage()),
     '/game': (_) => const MaterialPage(child: GamePage()),
-    '/game/ChoosePiece': (_) => MaterialPage(child: ChoosePiecePage()),
     //'/load' (_) => MaterialPage(child: //todo load page),
   },
 );
