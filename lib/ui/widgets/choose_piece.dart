@@ -50,11 +50,10 @@ class ChoosePiece extends StatelessWidget {
       ),
       title: Text(piece.runtimeType.toString()),
       onTap: () {
-        Routemaster.of(context).pop();
         context.read<GameProvider>().board.removePeace(coordinates);
         context.read<GameProvider>().board.setPiece(coordinates, piece);
         context.read<GameProvider>().render();
-        print(piece.runtimeType.toString() + " " + coordinates.toString());
+        Routemaster.of(context).pop();
       },
     );
   }

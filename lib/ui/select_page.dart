@@ -15,9 +15,9 @@ class SelectPage extends StatelessWidget {
           children: [
             Column(
               mainAxisAlignment:
-              (context.read<GameProvider>().colorMovie == ColorChess.black)
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.end,
+                  (context.read<GameProvider>().colorMovie == ColorChess.black)
+                      ? MainAxisAlignment.start
+                      : MainAxisAlignment.end,
               children: [
                 context.read<GameProvider>().boardWidget,
               ],

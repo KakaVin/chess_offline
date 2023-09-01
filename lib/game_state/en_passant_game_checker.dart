@@ -10,11 +10,16 @@ import '../Pieces/pawn.dart';
 class EnPassantGameChecker extends GameStateChecker {
   @override
   GameState check(Board board, ColorChess color) {
-    if (board.moves.isNotEmpty && board.getPiece(board.moves.last.to) is Pawn && Move.rankShift(board.moves.last) == 2) {
-      if ((board.getPiece(board.moves.last.to) as Pawn).color == ColorChess.white) {
-        board.enPassant = Coordinates(board.moves.last.to.file, board.moves.last.to.rank - 1);
+    if (board.moves.isNotEmpty &&
+        board.getPiece(board.moves.last.to) is Pawn &&
+        Move.rankShift(board.moves.last) == 2) {
+      if ((board.getPiece(board.moves.last.to) as Pawn).color ==
+          ColorChess.white) {
+        board.enPassant =
+            Coordinates(board.moves.last.to.file, board.moves.last.to.rank - 1);
       } else {
-        board.enPassant = Coordinates(board.moves.last.to.file, board.moves.last.to.rank + 1);
+        board.enPassant =
+            Coordinates(board.moves.last.to.file, board.moves.last.to.rank + 1);
       }
     } else {
       board.enPassant = null;

@@ -36,7 +36,8 @@ class Coordinates {
   String toString() {
     return "$file" + rank.toString();
   }
-  String toSave(){
+
+  String toSave() {
     switch (file) {
       case File.A:
         return "a" + rank.toString();

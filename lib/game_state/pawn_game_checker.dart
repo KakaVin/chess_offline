@@ -8,7 +8,6 @@ class PawnGameChecker extends GameStateChecker {
   @override
   GameState check(Board board, ColorChess color) {
     if (board.moves.isNotEmpty) {
-
       if ((board.moves.last.to.rank == 8 || board.moves.last.to.rank == 1) &&
           board.getPiece(board.moves.last.to) is Pawn) {
         return GameState.pawnOnEdgeOfBoard;

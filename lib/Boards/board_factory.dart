@@ -98,11 +98,7 @@ class BoardFactory {
   }
 
   Board copy(Board source) {
-    Board result = boardFromFEN(source.startingFen);
-
-    for (var move in source.moves) {
-      result.makeMove(move);
-    }
+    Board result = boardFromFEN(boardToFEN(source));
 
     return result;
   }
@@ -180,7 +176,6 @@ class BoardFactory {
     //Full move
     result += " " + board.fullMove.toString();
 
-    print(result);
     return result;
   }
 }

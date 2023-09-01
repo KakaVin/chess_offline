@@ -75,9 +75,6 @@ class GameProvider extends ChangeNotifier {
       //render
       render();
 
-      if (state != GameState.ongoing) {
-        print("game ending state: $state");
-      }
       //save stage if the number of moves matters
       saveGame();
     }
@@ -170,19 +167,23 @@ class GameProvider extends ChangeNotifier {
     state = determinateGameState(board, colorMovie);
     boardWidget = renderer.render(board, selectedPiece);
     notifyListeners();
+
+    if (state != GameState.ongoing) {
+      print("game ending state: $state");
+    }
   }
 
   void isEnPassantMove(Board board, Move move) {
-    print(board.fullMove.toString() + " " + board.enPassant.toString());
-    if (board.moves.isNotEmpty){
-      print("board.moves" + board.moves.last.to.toString());
-    }
-    if (board.moves.isNotEmpty && board.moves.last.to == board.enPassant && board.getPiece(board.moves.last.to ) is Pawn){
-      print("isEnPassantMove");
-      if ((board.getPiece(board.moves.last.to ) as Pawn).color == ColorChess.white){
-        board.removePeace(Coordinates(board.enPassant!.file, board.enPassant!.rank - 1));
+    if (board.moves.isNotEmpty &&
+        board.moves.last.to == board.enPassant &&
+        board.getPiece(board.moves.last.to) is Pawn) {
+      if ((board.getPiece(board.moves.last.to) as Pawn).color ==
+          ColorChess.white) {
+        board.removePeace(
+            Coordinates(board.enPassant!.file, board.enPassant!.rank - 1));
       } else {
-        board.removePeace(Coordinates(board.enPassant!.file, board.enPassant!.rank + 1));
+        board.removePeace(
+            Coordinates(board.enPassant!.file, board.enPassant!.rank + 1));
       }
     }
   }
