@@ -70,9 +70,8 @@ class GameProvider extends ChangeNotifier {
         selectedPiece = null;
       }
       //render
-      state = determinateGameState(board, colorMovie);
-      boardWidget = renderer.render(board, selectedPiece);
-      notifyListeners();
+      render();
+
       if (state != GameState.ongoing) {
         print("game ending state: $state");
       }
@@ -159,5 +158,11 @@ class GameProvider extends ChangeNotifier {
         }
       }
     }
+  }
+
+  void render() {
+    state = determinateGameState(board, colorMovie);
+    boardWidget = renderer.render(board, selectedPiece);
+    notifyListeners();
   }
 }

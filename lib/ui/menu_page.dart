@@ -1,4 +1,3 @@
-import 'package:chess_offline/Boards/board_utils.dart';
 import 'package:chess_offline/provider/game_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +30,11 @@ class MenuPage extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               Routemaster.of(context).push("/game");
-              context.read<GameProvider>().newGame(BoardUtils.defaultBoard);
+              context
+                  .read<GameProvider>()
+                  .newGame("k7/7P/8/8/8/8/7p/KNNRR3 w - - 0 1"
+                      //BoardUtils.defaultBoard
+                      );
             },
             child: const Text("Новая партия"),
           ),
