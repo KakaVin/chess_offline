@@ -69,6 +69,7 @@ class Pawn extends Piece {
       }
     } else {
       if (board.isSquareEmpty(coordinates)) {
+        if (board.enPassant == coordinates) return true;
         return false;
       } else {
         return board.getPiece(coordinates).color != color;

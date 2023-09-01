@@ -34,6 +34,26 @@ class Coordinates {
 
   @override
   String toString() {
-    return "$file " + rank.toString();
+    return "$file" + rank.toString();
+  }
+  String toSave(){
+    switch (file) {
+      case File.A:
+        return "a" + rank.toString();
+      case File.B:
+        return "b" + rank.toString();
+      case File.C:
+        return "c" + rank.toString();
+      case File.D:
+        return "d" + rank.toString();
+      case File.E:
+        return "e" + rank.toString();
+      case File.F:
+        return "f" + rank.toString();
+      case File.G:
+        return "g" + rank.toString();
+      default:
+        return "h" + rank.toString();
+    }
   }
 }

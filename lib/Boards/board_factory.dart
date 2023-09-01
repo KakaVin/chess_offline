@@ -60,6 +60,43 @@ class BoardFactory {
     return result;
   }
 
+  Coordinates? enPassantFromFen(String fen) {
+    List<String> parts = fen.split(" ");
+    String enPassant = parts[3];
+    Coordinates result;
+
+    if (enPassant.length == 1) {
+      return null;
+    } else {
+      switch (enPassant[0]) {
+        case "a":
+          result = Coordinates(File.A, int.parse(enPassant[1]));
+          break;
+        case "b":
+          result = Coordinates(File.B, int.parse(enPassant[1]));
+          break;
+        case "c":
+          result = Coordinates(File.C, int.parse(enPassant[1]));
+          break;
+        case "d":
+          result = Coordinates(File.D, int.parse(enPassant[1]));
+          break;
+        case "e":
+          result = Coordinates(File.E, int.parse(enPassant[1]));
+          break;
+        case "f":
+          result = Coordinates(File.F, int.parse(enPassant[1]));
+          break;
+        case "g":
+          result = Coordinates(File.G, int.parse(enPassant[1]));
+          break;
+        default:
+          result = Coordinates(File.H, int.parse(enPassant[1]));
+      }
+      return result;
+    }
+  }
+
   Board copy(Board source) {
     Board result = boardFromFEN(source.startingFen);
 
@@ -133,12 +170,17 @@ class BoardFactory {
     if (casting.length == 1) casting += "-";
     result += casting;
     //En passant target square
-    result += " -";
+    if (board.enPassant != null) {
+      result += " " + board.enPassant!.toSave();
+    } else {
+      result += " -";
+    }
     //Half move
     result += " " + board.halfMove.toString();
     //Full move
     result += " " + board.fullMove.toString();
 
+    print(result);
     return result;
   }
 }

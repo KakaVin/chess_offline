@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:routemaster/routemaster.dart';
 
+import '../Boards/board_utils.dart';
+
 class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);
 
@@ -30,11 +32,7 @@ class MenuPage extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               Routemaster.of(context).push("/game");
-              context
-                  .read<GameProvider>()
-                  .newGame("k7/7P/8/8/8/8/7p/KNNRR3 w - - 0 1"
-                      //BoardUtils.defaultBoard
-                      );
+              context.read<GameProvider>().newGame(BoardUtils.defaultBoard);
             },
             child: const Text("Новая партия"),
           ),

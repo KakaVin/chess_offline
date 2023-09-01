@@ -19,6 +19,7 @@ import '../Boards/board_widget_renderer.dart';
 import '../Pieces/king.dart';
 import '../Pieces/util/color_utils.dart';
 import '../game_state/casting_checker.dart';
+import '../game_state/en_passant_game_checker.dart';
 import '../game_state/pawn_game_checker.dart';
 
 class GameProvider extends ChangeNotifier {
@@ -34,6 +35,7 @@ class GameProvider extends ChangeNotifier {
     CastingChecker(),
     DrawGameStateChecker(),
     PawnGameChecker(),
+    EnPassantGameChecker(),
   ];
   ColorChess colorMovie = ColorChess.white;
   bool isGameAvailableTOLoad = false;
@@ -49,6 +51,7 @@ class GameProvider extends ChangeNotifier {
     board.casting = BoardFactory().canCastingFromFEN(fen);
     board.fullMove = BoardFactory().fullMoveFromFEN(fen);
     board.halfMove = BoardFactory().halfMoveFromFEN(fen);
+    board.enPassant = BoardFactory().enPassantFromFen(fen);
 
     boardWidget = renderer.render(board, null);
     state = determinateGameState(board, colorMovie);
@@ -97,6 +100,9 @@ class GameProvider extends ChangeNotifier {
       isCasting(board, move);
 
       board.makeMove(move);
+
+      isEnPassantMove(board, move);
+
       colorMovie = ColorUtils.opposite(colorMovie);
     }
     selectedPiece = null;
@@ -164,5 +170,20 @@ class GameProvider extends ChangeNotifier {
     state = determinateGameState(board, colorMovie);
     boardWidget = renderer.render(board, selectedPiece);
     notifyListeners();
+  }
+
+  void isEnPassantMove(Board board, Move move) {
+    print(board.fullMove.toString() + " " + board.enPassant.toString());
+    if (board.moves.isNotEmpty){
+      print("board.moves" + board.moves.last.to.toString());
+    }
+    if (board.moves.isNotEmpty && board.moves.last.to == board.enPassant && board.getPiece(board.moves.last.to ) is Pawn){
+      print("isEnPassantMove");
+      if ((board.getPiece(board.moves.last.to ) as Pawn).color == ColorChess.white){
+        board.removePeace(Coordinates(board.enPassant!.file, board.enPassant!.rank - 1));
+      } else {
+        board.removePeace(Coordinates(board.enPassant!.file, board.enPassant!.rank + 1));
+      }
+    }
   }
 }

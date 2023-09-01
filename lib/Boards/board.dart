@@ -17,6 +17,7 @@ class Board {
   Casting casting = Casting(false, false, false, false);
   int halfMove = 0;
   int fullMove = 1;
+  Coordinates? enPassant;
 
   Board(this.startingFen);
 
