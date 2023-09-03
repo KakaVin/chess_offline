@@ -1,8 +1,10 @@
-import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
 
 class BoardUtils {
+  static const defaultBoard =
+      "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
   static List<Coordinates> getDiagonalCoordinatesBetween(
       Coordinates source, Coordinates target) {
     //one diagonal
@@ -34,14 +36,6 @@ class BoardUtils {
       result.add(Coordinates(source.file, rank));
     }
     return result;
-  }
-
-  static ColorChess oppositeColorChess(ColorChess color) {
-    if (color == ColorChess.white) {
-      return ColorChess.black;
-    } else {
-      return ColorChess.white;
-    }
   }
 
   static List<Coordinates> getHorizontalCoordinatesBetween(

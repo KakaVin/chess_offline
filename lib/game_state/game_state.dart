@@ -3,4 +3,6 @@ enum GameState {
   stalemate,
   checkMateToWhiteKing,
   checkMateToBlackKing,
+  draw,
+  pawnOnEdgeOfBoard
 }

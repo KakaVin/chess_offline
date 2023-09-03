@@ -86,4 +86,68 @@ void main() {
           GameState.ongoing);
     });
   });
+
+  group("draw game", () {
+    GameProvider game =
+        GameProvider("r3k2r/pp4pp/1B6/8/6b1/8/8/R3KB1R w KQkq - 0 1");
+
+    test("normal move", () {
+      for (var i = 0; i < 12; i++) {
+        game.inputCoordinateTap(Coordinates(File.A, 1));
+        game.inputCoordinateTap(Coordinates(File.A, 2));
+
+        game.inputCoordinateTap(Coordinates(File.A, 8));
+        game.inputCoordinateTap(Coordinates(File.B, 8));
+
+        game.inputCoordinateTap(Coordinates(File.A, 2));
+        game.inputCoordinateTap(Coordinates(File.A, 1));
+
+        game.inputCoordinateTap(Coordinates(File.B, 8));
+        game.inputCoordinateTap(Coordinates(File.A, 8));
+
+        expect(game.state, GameState.ongoing);
+      }
+    });
+    test("draw", () {
+      game.inputCoordinateTap(Coordinates(File.A, 1));
+      game.inputCoordinateTap(Coordinates(File.A, 2));
+
+      game.inputCoordinateTap(Coordinates(File.A, 8));
+      game.inputCoordinateTap(Coordinates(File.B, 8));
+
+      expect(game.state, GameState.draw);
+    });
+  });
+
+  group("not draw game", () {
+    GameProvider game =
+        GameProvider("r3k2r/pp4pp/1B6/8/6b1/8/8/R3KB1R w KQkq - 0 1");
+
+    test("normal move", () {
+      for (var i = 0; i < 12; i++) {
+        game.inputCoordinateTap(Coordinates(File.A, 1));
+        game.inputCoordinateTap(Coordinates(File.A, 2));
+
+        game.inputCoordinateTap(Coordinates(File.A, 8));
+        game.inputCoordinateTap(Coordinates(File.B, 8));
+
+        game.inputCoordinateTap(Coordinates(File.A, 2));
+        game.inputCoordinateTap(Coordinates(File.A, 1));
+
+        game.inputCoordinateTap(Coordinates(File.B, 8));
+        game.inputCoordinateTap(Coordinates(File.A, 8));
+
+        expect(game.state, GameState.ongoing);
+      }
+    });
+    test("draw", () {
+      game.inputCoordinateTap(Coordinates(File.A, 1));
+      game.inputCoordinateTap(Coordinates(File.A, 2));
+
+      game.inputCoordinateTap(Coordinates(File.A, 7));
+      game.inputCoordinateTap(Coordinates(File.B, 6));
+
+      expect(game.state, GameState.ongoing);
+    });
+  });
 }

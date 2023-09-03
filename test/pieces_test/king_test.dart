@@ -1,4 +1,5 @@
 import 'package:chess_offline/Pieces/piece.dart';
+import 'package:chess_offline/Pieces/rook.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
@@ -56,27 +57,27 @@ void main() {
       game.inputCoordinateTap(whiteKing.coordinates);
       game.inputCoordinateTap(Coordinates(File.D, 1));
       expect(whiteKing.getAvailableMoveSquares(game.board).length, 2);
-      expect(game.board.casting[0], false);
-      expect(game.board.casting[1], false);
+      expect(game.board.casting.whiteLong, false);
+      expect(game.board.casting.whiteShort, false);
 
       game.inputCoordinateTap(whiteKing.coordinates);
       game.inputCoordinateTap(Coordinates(File.E, 1));
       expect(whiteKing.getAvailableMoveSquares(game.board).length, 2);
-      expect(game.board.casting[0], false);
-      expect(game.board.casting[1], false);
+      expect(game.board.casting.whiteLong, false);
+      expect(game.board.casting.whiteShort, false);
     });
     test("move one black rook", () {
       game.inputCoordinateTap(Coordinates(File.H, 8));
       game.inputCoordinateTap(Coordinates(File.H, 5));
-      expect(game.board.casting[2], false);
-      expect(game.board.casting[3], true);
+      expect(game.board.casting.blackShort, false);
+      expect(game.board.casting.blackLong, true);
       expect(blackKing.getAvailableMoveSquares(game.board).length, 3);
     });
     test("move two black rook", () {
       game.colorMovie = ColorChess.black;
       game.inputCoordinateTap(Coordinates(File.A, 8));
       game.inputCoordinateTap(Coordinates(File.A, 7));
-      expect(game.board.casting[3], false);
+      expect(game.board.casting.blackLong, false);
       expect(blackKing.getAvailableMoveSquares(game.board).length, 2);
     });
   });
@@ -88,8 +89,8 @@ void main() {
     Piece whiteKing = game.board.getPiece(Coordinates(File.E, 1));
 
     test("white king", () {
-      expect(game.board.casting[0], true);
-      expect(game.board.casting[1], true);
+      expect(game.board.casting.whiteShort, true);
+      expect(game.board.casting.whiteLong, true);
       expect(
           whiteKing.isSquareAvailableForMove(
               Coordinates(File.C, 1), game.board),
@@ -100,8 +101,8 @@ void main() {
           false);
     });
     test("black king", () {
-      expect(game.board.casting[2], true);
-      expect(game.board.casting[3], true);
+      expect(game.board.casting.blackLong, true);
+      expect(game.board.casting.blackShort, true);
       expect(
           blackKing.isSquareAvailableForMove(
               Coordinates(File.C, 8), game.board),
@@ -110,6 +111,54 @@ void main() {
           blackKing.isSquareAvailableForMove(
               Coordinates(File.G, 8), game.board),
           false);
+    });
+  });
+
+  group("short casting", () {
+    GameProvider game =
+        GameProvider("r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1");
+    Piece whiteKing = game.board.getPiece(Coordinates(File.E, 1));
+    Piece blackKing = game.board.getPiece(Coordinates(File.E, 8));
+
+    test("white king", () {
+      game.inputCoordinateTap(whiteKing.coordinates);
+      game.inputCoordinateTap(Coordinates(File.G, 1));
+      expect(game.board.getPiece(Coordinates(File.F, 1)) is Rook, true);
+      expect(whiteKing.coordinates == Coordinates(File.G, 1), true);
+      expect(game.board.casting.whiteLong, false);
+      expect(game.board.casting.whiteShort, false);
+    });
+    test("black king", () {
+      game.inputCoordinateTap(blackKing.coordinates);
+      game.inputCoordinateTap(Coordinates(File.G, 8));
+      expect(game.board.getPiece(Coordinates(File.F, 8)) is Rook, true);
+      expect(blackKing.coordinates == Coordinates(File.G, 8), true);
+      expect(game.board.casting.blackShort, false);
+      expect(game.board.casting.blackLong, false);
+    });
+  });
+
+  group("long casting", () {
+    GameProvider game =
+        GameProvider("r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1");
+    Piece whiteKing = game.board.getPiece(Coordinates(File.E, 1));
+    Piece blackKing = game.board.getPiece(Coordinates(File.E, 8));
+
+    test("white king", () {
+      game.inputCoordinateTap(whiteKing.coordinates);
+      game.inputCoordinateTap(Coordinates(File.C, 1));
+      expect(game.board.getPiece(Coordinates(File.D, 1)) is Rook, true);
+      expect(whiteKing.coordinates == Coordinates(File.C, 1), true);
+      expect(game.board.casting.whiteLong, false);
+      expect(game.board.casting.whiteShort, false);
+    });
+    test("black king", () {
+      game.inputCoordinateTap(blackKing.coordinates);
+      game.inputCoordinateTap(Coordinates(File.C, 8));
+      expect(game.board.getPiece(Coordinates(File.D, 8)) is Rook, true);
+      expect(blackKing.coordinates == Coordinates(File.C, 8), true);
+      expect(game.board.casting.blackShort, false);
+      expect(game.board.casting.blackLong, false);
     });
   });
 }

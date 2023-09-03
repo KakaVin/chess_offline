@@ -1,19 +1,23 @@
 import 'dart:collection';
+import 'package:chess_offline/Boards/casting.dart';
 import 'package:chess_offline/Boards/move.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
+import 'package:chess_offline/Pieces/util/color_utils.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/piece.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
 
 import '../Pieces/king.dart';
 import 'board_factory.dart';
-import 'board_utils.dart';
 
 class Board {
   HashMap<Coordinates, Piece> pieces = HashMap();
   String startingFen;
   List<Move> moves = [];
-  List<bool> casting = [false, false, false, false];
+  Casting casting = Casting(false, false, false, false);
+  int halfMove = 0;
+  int fullMove = 1;
+  Coordinates? enPassant;
 
   Board(this.startingFen);
 
@@ -82,7 +86,7 @@ class Board {
     Piece king = copy.getKingByColor(color);
 
     return copy.isSquareAttackedByColor(
-        king.coordinates, BoardUtils.oppositeColorChess(color));
+        king.coordinates, ColorUtils.opposite(color));
   }
 
   Piece getKingByColor(ColorChess color) {

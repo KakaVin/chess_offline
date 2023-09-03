@@ -1,3 +1,4 @@
+import 'package:chess_offline/Boards/casting.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Boards/board.dart';
 import 'package:chess_offline/Pieces/util/piece_factory.dart';
@@ -46,30 +47,84 @@ class BoardFactory {
     }
   }
 
-  List<bool> canCastingFromFEN(String fen) {
-    List<bool> result = [false, false, false, false];
+  Casting canCastingFromFEN(String fen) {
+    Casting result = Casting(false, false, false, false);
     List<String> parts = fen.split(" ");
     String casting = parts[2];
 
-    if (casting.contains("Q")) result[0] = true;
-    if (casting.contains("K")) result[1] = true;
-    if (casting.contains("q")) result[2] = true;
-    if (casting.contains("k")) result[3] = true;
+    if (casting.contains("Q")) result.whiteLong = true;
+    if (casting.contains("K")) result.whiteShort = true;
+    if (casting.contains("q")) result.blackLong = true;
+    if (casting.contains("k")) result.blackShort = true;
 
     return result;
+  }
+
+  Coordinates? enPassantFromFen(String fen) {
+    List<String> parts = fen.split(" ");
+    String enPassant = parts[3];
+    Coordinates result;
+
+    if (enPassant.length == 1) {
+      return null;
+    } else {
+      switch (enPassant[0]) {
+        case "a":
+          result = Coordinates(File.A, int.parse(enPassant[1]));
+          break;
+        case "b":
+          result = Coordinates(File.B, int.parse(enPassant[1]));
+          break;
+        case "c":
+          result = Coordinates(File.C, int.parse(enPassant[1]));
+          break;
+        case "d":
+          result = Coordinates(File.D, int.parse(enPassant[1]));
+          break;
+        case "e":
+          result = Coordinates(File.E, int.parse(enPassant[1]));
+          break;
+        case "f":
+          result = Coordinates(File.F, int.parse(enPassant[1]));
+          break;
+        case "g":
+          result = Coordinates(File.G, int.parse(enPassant[1]));
+          break;
+        default:
+          result = Coordinates(File.H, int.parse(enPassant[1]));
+      }
+      return result;
+    }
   }
 
   Board copy(Board source) {
-    Board result = boardFromFEN(source.startingFen);
-
-    for (var move in source.moves) {
-      result.makeMove(move);
-    }
+    Board result = boardFromFEN(boardToFEN(source));
 
     return result;
   }
 
-  String toFen(Board board) {
+  String toFEN(Board board, ColorChess color) {
+    var result = boardToFEN(board);
+    result += infoToFEN(board, color);
+
+    return result;
+  }
+
+  int fullMoveFromFEN(String fen) {
+    List<String> parts = fen.split(" ");
+    String fullMove = parts[5];
+
+    return int.parse(fullMove);
+  }
+
+  int halfMoveFromFEN(String fen) {
+    List<String> parts = fen.split(" ");
+    String halfMove = parts[4];
+
+    return int.parse(halfMove);
+  }
+
+  String boardToFEN(Board board) {
     var result = "";
     for (var rank = 8; rank > 0; rank--) {
       var spaceCount = 0;
@@ -88,8 +143,39 @@ class BoardFactory {
       if (spaceCount != 0) {
         result += spaceCount.toString();
       }
-      result += "/";
+      if (rank != 1) result += "/";
     }
+    return result;
+  }
+
+  String infoToFEN(Board board, ColorChess color) {
+    String result = "";
+
+    //active color
+    if (color == ColorChess.white) {
+      result += " w";
+    } else {
+      result += " b";
+    }
+    //castingAvailable
+    var casting = " ";
+    if (board.casting.whiteShort) casting += "K";
+    if (board.casting.whiteLong) casting += "Q";
+    if (board.casting.blackShort) casting += "k";
+    if (board.casting.blackLong) casting += "q";
+    if (casting.length == 1) casting += "-";
+    result += casting;
+    //En passant target square
+    if (board.enPassant != null) {
+      result += " " + board.enPassant!.toSave();
+    } else {
+      result += " -";
+    }
+    //Half move
+    result += " " + board.halfMove.toString();
+    //Full move
+    result += " " + board.fullMove.toString();
+
     return result;
   }
 }

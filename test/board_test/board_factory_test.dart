@@ -8,6 +8,7 @@ import 'package:chess_offline/Pieces/pawn.dart';
 import 'package:chess_offline/Pieces/rook.dart';
 import 'package:chess_offline/Boards/board.dart';
 import 'package:chess_offline/Boards/board_factory.dart';
+import 'package:chess_offline/provider/game_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -61,8 +62,8 @@ void main() {
   });
 
   group("start board", () {
-    Board board = BoardFactory()
-        .boardFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+    Board board = BoardFactory().boardFromFEN(
+        "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
     test("count Piece", () {
       expect(board.pieces.length, 32);
@@ -97,6 +98,28 @@ void main() {
       expect(board.getPiece(Coordinates(File.E, 8)) is King, true);
       expect((board.getPiece(Coordinates(File.E, 8)) as King).color,
           ColorChess.black);
+    });
+  });
+
+  group("save and load fen", () {
+    test("normal data", () {
+      String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+      GameProvider game = GameProvider(fen);
+
+      expect(BoardFactory().toFEN(game.board, game.colorMovie), fen);
+    });
+    test("clear board", () {
+      String fen = "8/8/8/8/8/8/8/8 w - - 0 1";
+      GameProvider game = GameProvider(fen);
+
+      expect(BoardFactory().toFEN(game.board, game.colorMovie), fen);
+    });
+    test("chaos board", () {
+      String fen =
+          "1nbq1rk1/r2p1p1p/1p3b1n/1NpP4/pPB1pP1R/2P3p1/P3P1PP/2RK1BN1 w - - 20 30";
+      GameProvider game = GameProvider(fen);
+
+      expect(BoardFactory().toFEN(game.board, game.colorMovie), fen);
     });
   });
 }
