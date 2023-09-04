@@ -77,6 +77,8 @@ class GameProvider extends ChangeNotifier {
 
       //save stage if the number of moves matters
       saveGame();
+
+      notifyListeners();
     }
   }
 
@@ -168,7 +170,6 @@ class GameProvider extends ChangeNotifier {
     state = determinateGameState(board, colorMovie);
     boardWidget = renderer.render(board, selectedPiece);
     notifyListeners();
-
   }
 
   void isEnPassantMove(Board board, Move move) {

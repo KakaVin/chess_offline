@@ -25,7 +25,10 @@ class StateChanges {
 
   static Widget _showWinnerDialog(BuildContext context, String whoWin) {
     return RotatedBox(
-      quarterTurns: (context.read<GameProvider>().state == GameState.checkMateToBlackKing)? 2 : 0,
+      quarterTurns:
+          (context.read<GameProvider>().state == GameState.checkMateToBlackKing)
+              ? 2
+              : 0,
       child: AlertDialog(
         title: const Text("Game Ended"),
         content: Text("$whoWin win!"),
