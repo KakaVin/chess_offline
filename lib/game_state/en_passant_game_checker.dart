@@ -22,7 +22,11 @@ class EnPassantGameChecker extends GameStateChecker {
             Coordinates(board.moves.last.to.file, board.moves.last.to.rank + 1);
       }
     } else {
-      board.enPassant = null;
+      if (board.moves.isNotEmpty &&
+          board.getPiece(board.moves.last.to) is! Pawn &&
+          !(Move.rankShift(board.moves.last) == 2)) {
+        board.enPassant = null;
+      }
     }
     return GameState.ongoing;
   }

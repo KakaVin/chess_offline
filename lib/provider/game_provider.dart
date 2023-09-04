@@ -118,12 +118,13 @@ class GameProvider extends ChangeNotifier {
       SharedPreferences save = await SharedPreferences.getInstance();
       save.setString("game", BoardFactory().toFEN(board, colorMovie));
       isGameAvailableTOLoad = true;
+
+      if (state != GameState.ongoing) {
+        save.setString("game", BoardUtils.defaultBoard);
+        isGameAvailableTOLoad = false;
+      }
     }
-    if (state != GameState.ongoing) {
-      SharedPreferences save = await SharedPreferences.getInstance();
-      save.setString("game", BoardUtils.defaultBoard);
-      isGameAvailableTOLoad = false;
-    }
+
     notifyListeners();
   }
 
@@ -168,9 +169,6 @@ class GameProvider extends ChangeNotifier {
     boardWidget = renderer.render(board, selectedPiece);
     notifyListeners();
 
-    if (state != GameState.ongoing) {
-      print("game ending state: $state");
-    }
   }
 
   void isEnPassantMove(Board board, Move move) {
@@ -186,5 +184,11 @@ class GameProvider extends ChangeNotifier {
             Coordinates(board.enPassant!.file, board.enPassant!.rank + 1));
       }
     }
+  }
+
+  void removePawnAndAddPiece(Coordinates coordinates, Piece piece) {
+    board.removePeace(coordinates);
+    board.setPiece(coordinates, piece);
+    render();
   }
 }

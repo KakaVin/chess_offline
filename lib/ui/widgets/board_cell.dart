@@ -1,10 +1,9 @@
 import 'package:chess_offline/Boards/board_widget_renderer.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
-import 'package:chess_offline/game_state/game_state.dart';
 import 'package:chess_offline/provider/game_provider.dart';
+import 'package:chess_offline/provider/if_state_changes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:routemaster/routemaster.dart';
 
 import '../../Pieces/util/color_chess.dart';
 
@@ -33,9 +32,7 @@ class BoardCell extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.read<GameProvider>().inputCoordinateTap(coordinates);
-        if (context.read<GameProvider>().state == GameState.pawnOnEdgeOfBoard) {
-          Routemaster.of(context).push("/game/select");
-        }
+        StateChanges.ifStateChanges(context);
       },
       child: Container(
           color: getCellColor(),

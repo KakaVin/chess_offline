@@ -2,6 +2,7 @@ import 'package:chess_offline/provider/game_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:routemaster/routemaster.dart';
+
 class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);
 
@@ -31,7 +32,7 @@ class MenuPage extends StatelessWidget {
               Routemaster.of(context).push("/game");
               context
                   .read<GameProvider>()
-                  .newGame("rnbqk3/pppppp1P/8/8/8/8/PPPPP2p/RNBQK3 w Qq - 0 1"
+                  .newGame("rnbqk3/pppppp1P/8/8/8/8/PPPPPP1p/RNBQK3 w Qq - 0 1"
                       //BoardUtils.defaultBoard
                       );
             },
