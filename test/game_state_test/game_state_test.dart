@@ -1,5 +1,4 @@
 import 'package:chess_offline/Boards/move.dart';
-import 'package:chess_offline/Pieces/bishop.dart';
 import 'package:chess_offline/Pieces/queen.dart';
 import 'package:chess_offline/Pieces/rook.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
