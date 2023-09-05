@@ -1,4 +1,7 @@
 import 'package:chess_offline/Boards/move.dart';
+import 'package:chess_offline/Pieces/bishop.dart';
+import 'package:chess_offline/Pieces/queen.dart';
+import 'package:chess_offline/Pieces/rook.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
@@ -148,6 +151,32 @@ void main() {
       game.inputCoordinateTap(Coordinates(File.B, 6));
 
       expect(game.state, GameState.ongoing);
+    });
+  });
+  group("pawn move to end of board", (){
+    test("white", (){
+      GameProvider game =
+      GameProvider("rnbqk3/pppppp1P/8/8/8/8/PPPPPP1p/RNBQK3 w Qq - 0 1");
+
+      game.inputCoordinateTap(Coordinates(File.H, 7));
+      game.inputCoordinateTap(Coordinates(File.H, 8));
+      game.removePawnAndAddPiece(Coordinates(File.H, 8), Queen(ColorChess.white, Coordinates(File.H, 8)));
+
+      expect(game.state, GameState.checkMateToBlackKing);
+    });
+    test("black", (){
+      GameProvider game =
+      GameProvider("rnbqk3/pppppp1P/8/8/8/8/PPPPPP1p/RNBQK3 w Qq - 0 1");
+
+      game.inputCoordinateTap(Coordinates(File.A, 2));
+      game.inputCoordinateTap(Coordinates(File.A, 3));
+
+      game.inputCoordinateTap(Coordinates(File.H, 2));
+      game.inputCoordinateTap(Coordinates(File.H, 1));
+
+      game.removePawnAndAddPiece(Coordinates(File.H, 1), Rook(ColorChess.black, Coordinates(File.H, 1)));
+
+      expect(game.state, GameState.checkMateToBlackKing);
     });
   });
 }
