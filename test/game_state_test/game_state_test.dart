@@ -152,20 +152,21 @@ void main() {
       expect(game.state, GameState.ongoing);
     });
   });
-  group("pawn move to end of board", (){
-    test("white", (){
+  group("pawn move to end of board", () {
+    test("white", () {
       GameProvider game =
-      GameProvider("rnbqk3/pppppp1P/8/8/8/8/PPPPPP1p/RNBQK3 w Qq - 0 1");
+          GameProvider("rnbqk3/pppppp1P/8/8/8/8/PPPPPP1p/RNBQK3 w Qq - 0 1");
 
       game.inputCoordinateTap(Coordinates(File.H, 7));
       game.inputCoordinateTap(Coordinates(File.H, 8));
-      game.removePawnAndAddPiece(Coordinates(File.H, 8), Queen(ColorChess.white, Coordinates(File.H, 8)));
+      game.removePawnAndAddPiece(Coordinates(File.H, 8),
+          Queen(ColorChess.white, Coordinates(File.H, 8)));
 
       expect(game.state, GameState.checkMateToBlackKing);
     });
-    test("black", (){
+    test("black", () {
       GameProvider game =
-      GameProvider("rnbqk3/pppppp1P/8/8/8/8/PPPPPP1p/RNBQK3 w Qq - 0 1");
+          GameProvider("rnbqk3/pppppp1P/8/8/8/8/PPPPPP1p/RNBQK3 w Qq - 0 1");
 
       game.inputCoordinateTap(Coordinates(File.A, 2));
       game.inputCoordinateTap(Coordinates(File.A, 3));
@@ -173,9 +174,10 @@ void main() {
       game.inputCoordinateTap(Coordinates(File.H, 2));
       game.inputCoordinateTap(Coordinates(File.H, 1));
 
-      game.removePawnAndAddPiece(Coordinates(File.H, 1), Rook(ColorChess.black, Coordinates(File.H, 1)));
+      game.removePawnAndAddPiece(Coordinates(File.H, 1),
+          Rook(ColorChess.black, Coordinates(File.H, 1)));
 
-      expect(game.state, GameState.checkMateToBlackKing);
+      expect(game.state, GameState.checkMateToWhiteKing);
     });
   });
 }
