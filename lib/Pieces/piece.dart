@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:chess_offline/Boards/move.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Boards/board.dart';
@@ -28,6 +29,9 @@ abstract class Piece {
   Set<CoordinatesShift> getPieceMove();
 
   bool isSquareAvailableForMove(Coordinates coordinates, Board board) {
+    if (Board.validateIfKingInCheckAfterMove(
+        board, color, Move(this.coordinates, coordinates))) return false;
+
     return board.isSquareEmpty(coordinates) ||
         board.getPiece(coordinates).color != color;
   }

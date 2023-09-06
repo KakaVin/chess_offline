@@ -57,6 +57,7 @@ class Pawn extends Piece {
 
   @override
   bool isSquareAvailableForMove(Coordinates coordinates, Board board) {
+    if (!super.isSquareAvailableForMove(coordinates, board)) return false;
     if (coordinates.file == this.coordinates.file) {
       if (Move.rankShift(Move(this.coordinates, coordinates)) == 2) {
         var between = BoardUtils.getVerticalCoordinatesBetween(

@@ -15,7 +15,9 @@ class BoardCell extends StatelessWidget {
   Coordinates coordinates;
 
   BoardCell(this.sprite, this.pieceColor, this.isSquareDark, this.isHighLight,
-      this.coordinates);
+      this.coordinates,
+      {Key? key})
+      : super(key: key);
 
   Color getCellColor() {
     if (isHighLight) {

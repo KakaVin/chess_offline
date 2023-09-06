@@ -37,7 +37,8 @@ class King extends Piece {
 
   @override
   bool isSquareAvailableForMove(Coordinates coordinates, Board board) {
-    bool result = super.isSquareAvailableForMove(coordinates, board);
+    bool result = board.isSquareEmpty(coordinates) ||
+        board.getPiece(coordinates).color != color;
     if (!result) return result;
 
     if (Move.fileShift(Move(this.coordinates, coordinates)) == 2) {

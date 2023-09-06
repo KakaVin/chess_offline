@@ -8,7 +8,6 @@ import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Boards/board.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
 import 'package:chess_offline/game_state/checkmate_game_state_checker.dart';
-import 'package:chess_offline/game_state/draw_game_state_checker.dart';
 import 'package:chess_offline/game_state/game_state.dart';
 import 'package:chess_offline/game_state/game_state_checker.dart';
 import 'package:chess_offline/game_state/stalemate_game_state_checker.dart';
@@ -30,10 +29,9 @@ class GameProvider extends ChangeNotifier {
   Piece? selectedPiece;
   late GameState state;
   final List<GameStateChecker> checkers = [
-    StalemateGameStateChecker(),
     CheckmateGameStateChecker(),
+    StalemateGameStateChecker(),
     CastingChecker(),
-    DrawGameStateChecker(),
     PawnGameChecker(),
     EnPassantGameChecker(),
   ];
@@ -77,8 +75,6 @@ class GameProvider extends ChangeNotifier {
 
       //save stage if the number of moves matters
       saveGame();
-
-      notifyListeners();
     }
   }
 
@@ -89,21 +85,17 @@ class GameProvider extends ChangeNotifier {
   }
 
   void makeMove(Board board, Move move) {
-    if (Board.validateIfKingInCheckAfterMove(
-        board, board.getPiece(move.from).color, move)) {
-      print("your King is after attack");
-    } else {
-      if (colorMovie == ColorChess.black) board.fullMove++;
+    if (colorMovie == ColorChess.black) board.fullMove++;
 
-      isHalfMove(board, move);
-      isCasting(board, move);
+    isHalfMove(board, move);
+    isCasting(board, move);
 
-      board.makeMove(move);
+    board.makeMove(move);
 
-      isEnPassantMove(board, move);
+    isEnPassantMove(board, move);
 
-      colorMovie = ColorUtils.opposite(colorMovie);
-    }
+    colorMovie = ColorUtils.opposite(colorMovie);
+
     selectedPiece = null;
   }
 

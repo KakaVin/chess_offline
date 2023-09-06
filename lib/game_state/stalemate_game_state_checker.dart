@@ -6,6 +6,8 @@ import 'package:chess_offline/game_state/game_state_checker.dart';
 class StalemateGameStateChecker extends GameStateChecker {
   @override
   GameState check(Board board, ColorChess color) {
+    if (board.halfMove >= 50) return GameState.stalemate;
+
     var pieces = board.getPiecesByColor(color);
     for (var piece in pieces) {
       var availableMoveSquares = piece.getAvailableMoveSquares(board);

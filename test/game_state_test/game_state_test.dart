@@ -117,7 +117,7 @@ void main() {
       game.inputCoordinateTap(Coordinates(File.A, 8));
       game.inputCoordinateTap(Coordinates(File.B, 8));
 
-      expect(game.state, GameState.draw);
+      expect(game.state, GameState.stalemate);
     });
   });
 

@@ -1,3 +1,4 @@
+import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/game_state/game_state.dart';
 import 'package:chess_offline/provider/game_provider.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +15,17 @@ class StateChanges {
           context: context,
           builder: (BuildContext context) =>
               _showWinnerDialog(context, "White"));
-    }
-    if (context.read<GameProvider>().state == GameState.checkMateToWhiteKing) {
+    } else if (context.read<GameProvider>().state ==
+        GameState.checkMateToWhiteKing) {
       showDialog(
           context: context,
           builder: (BuildContext context) =>
               _showWinnerDialog(context, "Black"));
+    } else if (context.read<GameProvider>().state == GameState.stalemate) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) =>
+              _showWinnerDialog(context, "Nobody"));
     }
   }
 
@@ -31,7 +37,7 @@ class StateChanges {
               : 0,
       child: AlertDialog(
         title: const Text("Game Ended"),
-        content: Text("$whoWin win!"),
+        content: Text("$whoWin won!"),
         actions: [
           TextButton(
               onPressed: () => Routemaster.of(context).pop(),
