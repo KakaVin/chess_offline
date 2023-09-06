@@ -1,5 +1,6 @@
 import 'package:chess_offline/Boards/board.dart';
 import 'package:chess_offline/Pieces/util/color_chess.dart';
+import 'package:chess_offline/Pieces/util/color_utils.dart';
 import 'package:chess_offline/game_state/game_state.dart';
 import 'package:chess_offline/game_state/game_state_checker.dart';
 
@@ -15,6 +16,11 @@ class StalemateGameStateChecker extends GameStateChecker {
         return GameState.ongoing;
       }
     }
-    return GameState.stalemate;
+    if (!board.isSquareAttackedByColor(
+        board.getKingByColor(color).coordinates, ColorUtils.opposite(color))) {
+      return GameState.stalemate;
+    } else {
+      return GameState.ongoing;
+    }
   }
 }

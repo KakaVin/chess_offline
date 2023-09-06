@@ -1,4 +1,3 @@
-import 'package:chess_offline/Pieces/util/color_chess.dart';
 import 'package:chess_offline/game_state/game_state.dart';
 import 'package:chess_offline/provider/game_provider.dart';
 import 'package:flutter/material.dart';
@@ -10,18 +9,19 @@ class StateChanges {
     if (context.read<GameProvider>().state == GameState.pawnOnEdgeOfBoard) {
       Routemaster.of(context).push("/game/select");
     }
-    if (context.read<GameProvider>().state == GameState.checkMateToBlackKing) {
+    var state = context.read<GameProvider>().state;
+    print(state);
+    if (state == GameState.checkMateToBlackKing) {
       showDialog(
           context: context,
           builder: (BuildContext context) =>
               _showWinnerDialog(context, "White"));
-    } else if (context.read<GameProvider>().state ==
-        GameState.checkMateToWhiteKing) {
+    } else if (state == GameState.checkMateToWhiteKing) {
       showDialog(
           context: context,
           builder: (BuildContext context) =>
               _showWinnerDialog(context, "Black"));
-    } else if (context.read<GameProvider>().state == GameState.stalemate) {
+    } else if (state == GameState.stalemate) {
       showDialog(
           context: context,
           builder: (BuildContext context) =>

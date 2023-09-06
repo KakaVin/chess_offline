@@ -3,6 +3,7 @@ import 'package:chess_offline/Pieces/util/coordinates.dart';
 import 'package:chess_offline/Pieces/util/file.dart';
 import 'package:chess_offline/Boards/board.dart';
 import 'package:chess_offline/Boards/board_factory.dart';
+import 'package:chess_offline/provider/game_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -75,6 +76,34 @@ void main() {
               .getAvailableMoveSquares(board)
               .length,
           0);
+    });
+  });
+  group("moves after enPassant", () {
+    GameProvider game = GameProvider(
+        "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+
+    game.inputCoordinateTap(Coordinates(File.E, 2));
+    game.inputCoordinateTap(Coordinates(File.E, 4));
+
+    game.inputCoordinateTap(Coordinates(File.F, 7));
+    game.inputCoordinateTap(Coordinates(File.F, 5));
+
+    game.inputCoordinateTap(Coordinates(File.E, 4));
+    game.inputCoordinateTap(Coordinates(File.F, 5));
+
+    test("en passant", () {
+      expect(
+          game.board
+              .getPiece(Coordinates(File.G, 7))
+              .getAvailableMoveSquares(game.board)
+              .length,
+          2);
+      expect(
+          game.board
+              .getPiece(Coordinates(File.E, 7))
+              .getAvailableMoveSquares(game.board)
+              .length,
+          2);
     });
   });
 }

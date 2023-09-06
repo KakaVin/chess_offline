@@ -23,8 +23,9 @@ class EnPassantGameChecker extends GameStateChecker {
       }
     } else {
       if (board.moves.isNotEmpty &&
-          board.getPiece(board.moves.last.to) is! Pawn &&
-          !(Move.rankShift(board.moves.last) == 2)) {
+          (board.getPiece(board.moves.last.to) is! Pawn ||
+              (board.getPiece(board.moves.last.to) is Pawn &&
+                  !(Move.rankShift(board.moves.last) == 2)))) {
         board.enPassant = null;
       }
     }
